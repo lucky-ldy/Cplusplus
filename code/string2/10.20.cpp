@@ -223,6 +223,31 @@ void test_string9()
     cout << end2 - begin2 << endl;
 } 
 
+void test_string10() 
+{
+	string s1("12345xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+	cout << s1 << endl;
+	s1.reserve(10);
+	s1.reserve(100); //纯粹扩容 不会影响数据
+
+    //resize 会改变size 第一个参数给多少就会扩容到多少
+	// 大于size
+	// 1、扩容+插入数据
+	string s2;
+	//s2.resize(100);
+	s2.resize(100, 'x');//如果默认不给'x' 就是'/0'
+    cout << s2 << endl;
+
+	// 小于size
+	// 2、删除数据
+	s2.resize(10);
+    cout << s2 << endl;
+	// 大于size
+	// 3、部分插入
+	s2.resize(50, 'y');
+    cout << s2 << endl;
+}
+
 void func(const string& s) 
 {
     //const迭代器
@@ -258,6 +283,7 @@ int main()
     test_string7();
     test_string8();
     test_string9();
+    test_string10();
     //func(s2);
       
 }
