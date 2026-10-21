@@ -238,7 +238,7 @@ void test_string10()
 	s2.resize(100, 'x');//如果默认不给'x' 就是'/0'
     cout << s2 << endl;
 
-	// 小于size
+	// 小于size  
 	// 2、删除数据
 	s2.resize(10);
     cout << s2 << endl;
@@ -248,7 +248,33 @@ void test_string10()
     cout << s2 << endl;
 }
 
-void func(const string& s) 
+void test_string11()
+{
+    string s1("12345");
+    string s2("678901");
+    const char* p1 = "bb";
+    cout << (s1 < s2) << endl; //正确返回1
+    cout << (s1 > s2) << endl; //错误返回0 
+    cout << (p1 < s1) << endl; //错误返回0 
+    
+    //默认规定 空格和换行是多个值之间的分隔符
+    //输入hello world    
+    // cin >> s1;
+    // cout << s1 <<endl;//输出的是hello 
+
+    // cin >> s2;
+    // cout << s2 <<endl;//输出的是world
+
+    //默认分隔符是换行符 '\n'
+    getline(cin, s1);//输入hello world
+    cout << s1 <<endl;//输出的是hello world
+
+    //也可以指定分隔符'#' 第三个参数
+    getline(cin, s2 , '#');//输入hello world
+    cout << s2 <<endl;//输出的是hello world
+}
+
+ void func(const string& s) 
 {
     //const迭代器
     //遍历容器时，可读不可写
@@ -284,6 +310,7 @@ int main()
     test_string8();
     test_string9();
     test_string10();
+    test_string11();
     //func(s2);
       
 }
@@ -372,3 +399,27 @@ public:
     }
   
 };
+
+//四、最后一个单词的长度
+// 输入HelloNowcoder
+//输出：13
+// 说明： 在这个样例中，最后一个单词是 "HelloNowcoder" 长度为 13
+
+// 输入：A B C D
+// 输出：1
+
+#include<iostream>
+#include<string>
+using namespace std;
+int main()
+{
+    string line;
+    // 不要使用cin>>line,因为会它遇到空格就结束了
+    // while(cin>>line)
+    while(getline(cin, line))
+    {
+        size_t pos = line.rfind(' ');
+        cout << line.size()-pos-1 << endl;
+    }
+    return 0;
+}
