@@ -37,6 +37,14 @@ namespace ldy
 		_size = _capacity = 0;
 
     }
+    //拷构造函数
+    string::string(const string& s)
+        : _str(new char[s._size + 1]), 
+        _size(s._size), 
+        _capacity(s._capacity)
+    {
+        strcpy(_str, s._str);
+    }
 
     //C++都是异地扩容 满了就再开辟空间
     void string::reserve(size_t n)
@@ -56,7 +64,7 @@ namespace ldy
     {
         if (_size == _capacity) 
         {
-			reserve(_capacity * 2);
+			reserve(_capacity == 0 ? 4 : _capacity * 2 + 1);
 		}
 		_str[_size] = ch;
 		++_size;
@@ -87,7 +95,224 @@ namespace ldy
 		append(str);
 		return *this;
 	}
+
+    void string::insert(size_t pos, char ch)
+    {
+        assert(pos <= _size);
+        if(_size == _capacity)
+        {
+            reserve(_capacity == 0 ? 4 : _capacity * 2 + 1);
+        }
+
+        //这里pos是size_t 类型 转换为int 类型
+        // int end = _size;
+        // while(end >= (int)pos)
+        // {
+        //     _str[end+1] = _str[end];
+        //     --end;
+        // }
+
+        int end = _size + 1;
+        while(end > pos)
+        {
+            _str[end] = _str[end-1];
+            --end;
+        }
+        _str[pos] = ch;
+        ++_size;
+    }   
+
+    void string::insert(size_t pos, const char* str)
+    {
+        assert(pos <= _size);
+        size_t len = strlen(str);
+        // 扩容
+		if (_size + len > _capacity) 
+        {
+			reserve(_size + len);
+		}
+        //挪动数据
+        // int end = _size ;
+        // while(end >= (int)pos)
+        // {
+        //     _str[end + len] = _str[end];
+        //     --end;
+        // }
+        size_t end = _size + len;
+        while(end > pos + len -1)
+        {
+            _str[end] = _str[end-len];
+            --end;
+        }
+
+        for(size_t i = 0 ; i < len ; ++i)
+        {
+            _str[pos + i] = str[i];
+        }
+        _size += len;
+    }
+    //因为 size_t 是无符号类型，-1 会转换成它的最大值，用作特殊标记。
+    size_t string::npos = -1;
+    //从下标 pos 开始删除 len 个字符；不传 len，默认删除到末尾。
+    void string::erase(size_t pos , size_t len)
+    {
+        //len大于后面的字符个数  pos以后的都要删除
+        if(len == string::npos || len >= _size - pos)
+        {
+            _str[pos] = '\0';
+            _size = pos;
+        }
+        //len小于后面的字符个数
+        else
+        {
+            for(size_t i = pos + len ; i < _size ; ++i)
+            {
+                _str[pos ++] = _str[i];
+            }
+            _size -= len;
+            _str[_size] = '\0';
+        }
+    }
+    //从pos位置开始 查找 ch 字符 第一次出现的位置
+    size_t string::find(char ch , size_t pos) const
+    {
+        assert(pos < _size);
+        for(size_t i = pos ; i < _size ; i++)
+        {
+            if(_str[i] == ch)
+            return i;
+        }
+        return npos;
+    }
+    //从pos位置开始 查找 s 字符串 第一次出现的位置
+     size_t string::find(const char* s, size_t pos) const
+     {
+        const char* ptr = strstr(_str + pos , s);
+        if(ptr == nullptr)   return npos;
+        else    return ptr - _str;
+     }  
+
+     string string::substr(size_t pos , size_t len ) const
+     {
+        //len大于后面的字符个数  pos以后的都要取
+        if(len == npos  || len >= _size - pos)
+        {
+            len = _size - pos;
+        }
+        string sub;
+        sub.reserve(len);
+        for(size_t i = pos ; i < len ; i++)
+        {
+            sub += _str[pos +i];
+        }
+        return sub;
+     }
+     //赋值运算符
+     string& string::operator=(const string& s)
+     {
+        if(this != &s)
+        {
+            delete[] _str;
+            _str = new char[s._capacity + 1];
+            strcpy(_str, s._str);
+            _size = s._size;
+            _capacity = s._capacity;
+        }
+        return *this;
+     }
+
+     /////////////////////////////////////////////////////
+    string operator+ (const string& lhs, const string& rhs)
+    {
+        string s = lhs;
+        s += rhs.c_str();
+        return s;
+    }
+	string operator+ (const string & lhs, const char* rhs)
+    {
+        string s = lhs;
+        s += rhs;
+        return s;
+    }
+	string operator+ (const char* lhs, const string& rhs)
+    {
+        string s = lhs;
+        s += rhs.c_str();
+        return s;
+    }
+    ostream& operator<<(ostream& out, const string& s)
+    {
+        for(auto ch : s)
+        {
+            out << ch;
+        }
+        return out;
+    }
+
+    bool operator== (const string& lhs, const string& rhs)
+    {
+        return strcmp(lhs.c_str(), rhs.c_str()) == 0;
+    }
+
+    bool operator<(const string& lhs, const string& rhs) 
+    {
+		return strcmp(lhs.c_str(), rhs.c_str()) < 0;
+	}
+
+	bool operator!= (const string& lhs, const string& rhs) 
+    {
+		return !(lhs == rhs);
+	}
+
+	bool operator>(const string& lhs, const string& rhs) 
+    {
+		return !(lhs <= rhs);
+	}
+	
+	bool operator>= (const string& lhs, const string& rhs) 
+    {
+		return !(lhs < rhs);
+	}
+
+	bool operator<= (const string& lhs, const string& rhs) 
+    {
+		return lhs < rhs || lhs == rhs;
+	}
+
+    void string::swap(string& s)
+    {
+       std::swap(_str, s._str);
+       std::swap(_size, s._size);
+       std::swap(_capacity, s._capacity);
+    }
+
+    istream& operator>>(istream& in, string& s) 
+    {
+		char ch;
+		//in >> ch;
+		ch = in.get();
+		while (ch != ' ' && ch != '\n') 
+        {
+			s += ch;
+			//in >> ch;
+			ch = in.get();
+		}
+		return in;
+	}
+
+	istream& getline(istream& in, string& s) 
+    {
+		char ch;
+		ch = in.get();
+		while (ch != '\n') 
+        {
+			s += ch;
+			ch = in.get();
+		}
+		return in;
+	}
 }
+
 
 //const 对象不能调用普通的 begin 和 end
 void func(const ldy::string& s) 
@@ -109,6 +334,11 @@ void func(const ldy::string& s)
 		++it;
 	}
 	cout << endl;
+}
+
+void swap(ldy::string& s1, ldy::string& s2) 
+{
+	s1.swap(s2);
 }
 
 void teststring1()
@@ -150,25 +380,85 @@ void teststring1()
 
 void teststring2() 
 {
-	std::string s1("hello");
-	s1.append("xxxxxxxxxxxx");
+	// std::string s1("hello");
+	// s1.append("xxxxxxxxxxxx");
 
-	cout << s1.c_str() << endl;
+	// cout << s1.c_str() << endl;
 
-	s1 += ' ';
-	s1 += "yyyyyyyyyyyyyy";
-	cout << s1.c_str() << endl;
+	// s1 += ' ';
+	// s1 += "yyyyyyyyyyyyyy";
+	// cout << s1.c_str() << endl;
 
 	string s1("string.cpp");
 	string s2("aaaa");
 	const char* p1 = "bb";
-	//cout << (s1 < s2) << endl;
-	//cout << (s2 < p1) << endl;
-	//cout << (p1 < s2) << endl;
+	cout << (s1 < s2) << endl;
+	cout << (s2 < p1) << endl;
+	cout << (p1 < s2) << endl;
 
 	cout << s1 + p1 << endl;
 	cout << p1 + s1 << endl;
 	cout << s1 + p1 + s2 + p1 << endl;
+}
+
+void teststring3() 
+{
+    ldy::string s1("hello world");
+    s1.insert(5, 'x');
+    cout << s1.c_str() << endl;
+
+    ldy::string s2;
+    s2.insert(0, 'x');
+    cout << s2.c_str() << endl;
+
+    ldy::string s3("hello world");
+    s3.insert(5, " hello");
+    cout << s3.c_str() << endl;
+
+    ldy::string s4("lucky ldy");
+    s4.erase(5, 3);
+    cout << s4.c_str() << endl;
+
+    ldy::string s5("ldyluckyeveryday");
+    size_t pos = s5.find("luck", 0);
+    size_t pos2 = s5.find("everday", 0);
+    cout << pos << endl;
+    cout << pos2 << endl;
+
+    ldy::string s6 = s5.substr(0, 5);
+    cout << s6.c_str() << endl;
+
+    //地址不一样是深拷贝
+    ldy::string s7(s6);
+    cout << s7.c_str() << endl;
+
+    s7 = s6;
+    //s6 = s6;//自赋值，不执行赋值运算符
+    cout << s7.c_str() << endl;
+
+}
+
+void teststring4() 
+{
+    ldy::string s1("hello world");
+    ldy::string s2("ldyluckyeveryday");
+    const char* p1 = "bb";
+    cout << s1 + s2 << endl;
+    cout << s1 + p1 << endl;
+    cout << p1 + s1 << endl;
+
+    s1.swap(s2);
+    cout << s1.c_str() << endl;
+    cout << s2.c_str() << endl;
+
+    swap(s1 , s2);
+    cout << s1.c_str() << endl;
+    cout << s2.c_str() << endl;
+
+    ldy::string s3;
+    //cin >> s3;
+    getline(cin, s3);
+    cout << s3.c_str() << endl;
 }
 
 
@@ -183,8 +473,11 @@ int main()
     ldy::string s3("hello world");
     func(s3);
 
-    teststring1();
-    teststring2();
+    // teststring1();
+    // teststring2();
+    teststring3();
+    teststring4();
+    
     return 0;
 }
 
