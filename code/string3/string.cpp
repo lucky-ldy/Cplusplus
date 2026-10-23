@@ -38,12 +38,20 @@ namespace ldy
 
     }
     //拷构造函数
+    // string::string(const string& s)
+    //     : _str(new char[s._size + 1]), 
+    //     _size(s._size), 
+    //     _capacity(s._capacity)
+    // {
+    //     strcpy(_str, s._str);
+    // }
+
+    //现代写法
+    //让别人干活 自己拿过来用
     string::string(const string& s)
-        : _str(new char[s._size + 1]), 
-        _size(s._size), 
-        _capacity(s._capacity)
     {
-        strcpy(_str, s._str);
+        string tmp(s._str);
+        swap(tmp);
     }
 
     //C++都是异地扩容 满了就再开辟空间
@@ -208,18 +216,32 @@ namespace ldy
         return sub;
      }
      //赋值运算符
-     string& string::operator=(const string& s)
-     {
+    //  string& string::operator=(const string& s)
+    //  {
+    //     if(this != &s)
+    //     {
+    //         delete[] _str;
+    //         _str = new char[s._capacity + 1];
+    //         strcpy(_str, s._str);
+    //         _size = s._size;
+    //         _capacity = s._capacity;
+    //     }
+    //     return *this;
+    //  }
+
+    //+ 现代写法
+    string& string::operator=(const string& s)
+    {
         if(this != &s)
         {
-            delete[] _str;
-            _str = new char[s._capacity + 1];
-            strcpy(_str, s._str);
-            _size = s._size;
-            _capacity = s._capacity;
+            string tmp(s._str);
+            swap(tmp);
+            //this指向对象s1获取到tmp 拷贝的空间 
+            //同时this指向对象s1要释放的空间换给tmp
         }
         return *this;
-     }
+    }
+
 
      /////////////////////////////////////////////////////
     string operator+ (const string& lhs, const string& rhs)
@@ -280,7 +302,7 @@ namespace ldy
 	}
 
     void string::swap(string& s)
-    {
+    { 
        std::swap(_str, s._str);
        std::swap(_size, s._size);
        std::swap(_capacity, s._capacity);
@@ -288,27 +310,63 @@ namespace ldy
 
     istream& operator>>(istream& in, string& s) 
     {
+        //先清空s
+        s.erase();
 		char ch;
 		//in >> ch;
 		ch = in.get();
+        char buff[128];
+        int i = 0;
 		while (ch != ' ' && ch != '\n') 
         {
-			s += ch;
+            buff[i++] = ch;
+            if(i == 127)
+            {
+                buff[i] = '\0';
+                s+= buff;
+                i = 0;
+            }
+			
 			//in >> ch;
 			ch = in.get();
 		}
+        if(i > 0)
+        {
+            buff[i] = '\0';
+            s+= buff;
+            i = 0;
+        }
 		return in;
 	}
 
-	istream& getline(istream& in, string& s) 
+	istream& getline(istream& in, string& s , char delim) 
     {
+       //先清空s
+        s.erase();
 		char ch;
+		//in >> ch;
 		ch = in.get();
-		while (ch != '\n') 
+        char buff[128];
+        int i = 0;
+		while (ch != delim) 
         {
-			s += ch;
+            buff[i++] = ch;
+            if(i == 127)
+            {
+                buff[i] = '\0';
+                s+= buff;
+                i = 0;
+            }
+			
+			//in >> ch;
 			ch = in.get();
 		}
+        if(i > 0)
+        {
+            buff[i] = '\0';
+            s+= buff;
+            i = 0;
+        }
 		return in;
 	}
 }
@@ -455,11 +513,30 @@ void teststring4()
     cout << s1.c_str() << endl;
     cout << s2.c_str() << endl;
 
+    ldy::string s4("mininini");
+    cin >> s1;
+    cout << s1.c_str() << endl;
+    
     ldy::string s3;
     //cin >> s3;
-    getline(cin, s3);
+    getline(cin, s3 ,'*');
     cout << s3.c_str() << endl;
-}
+
+    s1 = s2;
+    cout << s1.c_str() << endl;
+    cout << s2.c_str() << endl;
+
+    ldy::string s5("hello world");
+    std::string s6;
+    cout << sizeof(s5) << endl;//这里是24 个字节 是ldy我们自己实现的string类
+    cout << sizeof(s6) << endl;//这里是32 个字节 是标准库的string类
+
+    std::string s7("hello");
+    std::string s8;
+    //这两个大小输出是一样的 因为他们的数据是在堆上分配的 而s7 s8是类对象 只占用栈空间
+
+
+} 
 
 
 int main()
@@ -477,6 +554,7 @@ int main()
     // teststring2();
     teststring3();
     teststring4();
+    
     
     return 0;
 }

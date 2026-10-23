@@ -49,6 +49,7 @@ namespace ldy
         //+=
         string& operator+=(char ch);//单个字符
         string& operator+=(const char* str);//字符串
+        //+
         //插入
         void insert(size_t pos, char ch);
         void insert(size_t pos, const char* str);
@@ -61,7 +62,7 @@ namespace ldy
         //子字符串
         string substr(size_t pos = 0, size_t len = string::npos) const;
         // 赋值运算符
-        string& operator=(const string& s); 
+        string& operator=(const string& s);
         //交换
         void swap(string& s);
         
@@ -101,6 +102,7 @@ namespace ldy
 	string operator+ (const string & lhs, const char* rhs);
 	string operator+ (const char* lhs, const string& rhs);
 
+
     bool operator== (const string& lhs, const string& rhs);
 	bool operator!= (const string& lhs, const string& rhs);
 	bool operator>(const string& lhs, const string& rhs);
@@ -110,9 +112,8 @@ namespace ldy
 
     ostream& operator<<(ostream& out, const string& s);
     istream& operator>>(istream& in, string& s);
-	istream& getline(istream& in, string& s);
     istream& operator>>(istream& in, string& s);
-	istream& getline(istream& in, string& s);
+	istream& getline(istream& in, string& s , char delim = '\n');
 }
     void swap(ldy::string& s1, ldy::string& s2);
 
