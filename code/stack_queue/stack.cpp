@@ -130,23 +130,80 @@ private:
 
 #include "stack.h"
 #include "queue.h"
+#include "priority_queue.h"
 using namespace std;
+
+void TestPriorityQueue1()
+{
+    // priority_queue<元素类型, 底层容器类型, 比较规则类型>
+    //priority_queue<int, vector<int>, greater<int>> q2; //建立小堆
+    //priority_queue<int, vector<int>, less<int>> q1; //建立大堆 默认无参是大堆
+    // 默认情况下，创建的是大堆，其底层按照小于号比较
+     vector<int> v{3,2,7,6,0,4,1,9,8,5};
+    // priority_queue<int> q1; //priority_queue在 queue头文件里面
+    // for (auto& e : v)
+    //     q1.push(e);
+
+    //迭代器初始化
+    //priority_queue<int> q1(v.begin(), v.end());//建立大堆
+    priority_queue<int, vector<int>, greater<int>> q1(v.begin(), v.end());//建立小堆
+
+    //取最大的前k个
+    int k ;
+    cin >> k ;
+    while(k--)
+    {
+        cout << q1.top() << " ";
+        q1.pop();
+    }
+    cout << endl;
+
+}
+
+void TestPriorityQueue2()
+{
+    vector<int> v{3,2,7,6,0,4,1,9,8,5};
+    ldy::priority_queue<int> q1; 
+    for (auto& e : v)
+    q1.push(e);
+    int k ;
+    cin >> k ;
+    while(k--)
+    {
+        cout << q1.top() << " ";
+        q1.pop();
+    }
+     cout << endl;
+
+}
+
+// 仿函数/ 函数对象
+class Less
+{
+public:
+    bool operator()(int x ,  int y)
+    {
+        return x < y;
+    }
+};
+
+
 
 int main()
 {
-    ldy::MyStack<int> st;
+    //ldy::MyStack<int> st;
     //ldy::MyStack<int , vector<int>> st; 顺序栈
     //ldy::MyStack<int , list<int>> st;   链式栈
-    st.push(1);
-    st.push(2);
-    st.push(3);
-    st.push(4);
-    while(!st.empty())
-    {
-        cout << st.top() << " ";
-        st.pop();
-    }
-    cout << endl;
+    // st.push(1);
+    // st.push(2);
+    // st.push(3);
+    // st.push(4);
+    // while(!st.empty())
+    // {
+    //     cout << st.top() << " ";
+    //     st.pop();
+    // }
+    // cout << endl;
 
     // cout << st.top() << endl;
     // st.pop();
@@ -154,16 +211,28 @@ int main()
 
     //ldy::MyQueue<int> q;
     //ldy::MyQueue<int , vector<int>> q; 不能用vector实现 vector不支持头删
-    ldy::MyQueue<int , list<int>> q;   // 链式队列
-    q.push(1);
-    q.push(2);
-    q.push(3);
-    q.push(4);
-    while(!q.empty())
-    {
-        cout << q.front() << " ";
-        q.pop();
-    }
-    cout << endl;
-}
-  
+    // ldy::MyQueue<int , list<int>> q;   // 链式队列
+    // q.push(1);
+    // q.push(2);
+    // q.push(3);
+    // q.push(4);
+    // while(!q.empty())
+    // {
+    //     cout << q.front() << " ";
+    //     q.pop();
+    // }
+    // cout << endl;
+    //TestPriorityQueue1();
+
+    Less lessFunc;
+    //看起来就像是调用函数一样
+    cout << lessFunc(1,2) << endl;
+    //本质是调用operator()(1,2)
+    cout << lessFunc.operator()(1,2) << endl;
+    TestPriorityQueue2();
+}       
+
+
+
+
+
