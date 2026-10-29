@@ -126,12 +126,37 @@ private:
     queue<int> _q2;
 };
 
+template<class T>
+class Less
+{
+public:
+    bool operator()(const T& x , const T& y)
+    {
+        return x < y;
+    }
+
+};
+
+template<class T>
+class Greater
+{
+public:
+    bool operator()(const T& x , const T& y)
+    {
+        return x > y;
+    }
+
+};
 
 
 #include "stack.h"
 #include "queue.h"
 #include "priority_queue.h"
 using namespace std;
+
+
+
+
 
 void TestPriorityQueue1()
 {
@@ -151,7 +176,7 @@ void TestPriorityQueue1()
     //取最大的前k个
     int k ;
     cin >> k ;
-    while(k--)
+    while(k-- > 0 && !q1.empty())
     {
         cout << q1.top() << " ";
         q1.pop();
@@ -168,7 +193,7 @@ void TestPriorityQueue2()
     q1.push(e);
     int k ;
     cin >> k ;
-    while(k--)
+    while(k-- > 0 && !q1.empty())
     {
         cout << q1.top() << " ";
         q1.pop();
@@ -177,16 +202,107 @@ void TestPriorityQueue2()
 
 }
 
+void TestPriorityQueue3()
+{
+    vector<int> v{3,2,7,6,0,4,1,9,8,5};
+    ldy::priority_queue<int, vector<int>, Less<int>> q3;
+     for (auto& e : v)
+    q3.push(e);
+    int k ;
+    cin >> k ;
+    while(k-- > 0 && !q3.empty())
+    {
+        cout << q3.top() << " ";
+        q3.pop();
+    }  
+     cout << endl;
+
+//     ldy::priority_queue<int, vector<int>, Greater<int>> q2;
+//     for (auto& e : v)
+//     q2.push(e);
+//     int m ;
+//     cin >> m ;
+//     while(m--)
+//     {
+//         cout << q2.top() << " ";
+//         q2.pop();
+//     }
+//      cout << endl;
+ }
+
 // 仿函数/ 函数对象
-class Less
+// class Less
+// {
+// public:
+//     bool operator()(int x ,  int y)
+//     {
+//         return x < y;
+//     }
+// };
+
+template<class T>
+class LessDate;
+
+class Date
 {
 public:
-    bool operator()(int x ,  int y)
+    Date(int year , int month , int day)
+    :_year(year) 
+    , _month(month) 
+    , _day(day)
     {
-        return x < y;
+
     }
+
+    //友元函数
+    friend ostream& operator<<(ostream& _cout , const Date& d);
+    template<class T>
+    friend class LessDate;
+
+
+private:
+    int _year;
+    int _month;
+    int _day;
 };
 
+ostream& operator<<(ostream& _cout , const Date& d)
+{
+    _cout << d._year << "-" << d._month << "-" << d._day;
+    return _cout;
+}
+
+template<class T>
+class LessDate
+{
+public:
+    bool operator()(const Date& x , const Date& y)  
+    {
+        return (x._year < y._year) || 
+            (x._year == y._year && x._month < y._month) ||
+            (x._year == y._year && x._month == y._month && x._day < y._day);
+            //return x < y;     
+    }   
+};
+
+void TestPriorityQueue4()
+{
+    //大堆
+    priority_queue<Date , vector<Date>, LessDate<Date>> q4;
+    q4.push(Date(2023,1,1));
+    q4.push(Date(2023,2,1));
+    q4.push(Date(2023,3,1));
+    q4.push(Date(2023,4,1));
+
+    int k;
+    cin >> k ;
+    while(k-- && !q4.empty())
+    {
+        cout << q4.top() << " ";
+        q4.pop();
+    }
+    cout << endl;
+}
 
 
 int main()
@@ -224,13 +340,21 @@ int main()
     // cout << endl;
     //TestPriorityQueue1();
 
-    Less lessFunc;
-    //看起来就像是调用函数一样
-    cout << lessFunc(1,2) << endl;
-    //本质是调用operator()(1,2)
-    cout << lessFunc.operator()(1,2) << endl;
-    TestPriorityQueue2();
-}       
+    // Less lessFunc;
+    // //看起来就像是调用函数一样
+    // cout << lessFunc(1,2) << endl;
+    // //本质是调用operator()(1,2)
+    // cout << lessFunc.operator()(1,2) << endl;
+    // TestPriorityQueue2();
+    
+    // //写成模板形式
+    // Less<int> lessFunc;
+    // cout << lessFunc(1,2) << endl;
+    // Greater<int> greaterFunc;
+    // cout << greaterFunc(1,2) << endl;
+    //TestPriorityQueue3();
+    TestPriorityQueue4();
+}      
 
 
 
