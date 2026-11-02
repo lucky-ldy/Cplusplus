@@ -386,24 +386,24 @@ private:
     size_t _top;
 };
 
-int main()
-{
-    Stack s;
-    s.Init();
-    s.Push(1);
-    s.Push(2);
-    s.Push(3);
-    s.Push(4);
+// int main()
+// {
+//     Stack s;
+//     s.Init();
+//     s.Push(1);
+//     s.Push(2);
+//     s.Push(3);
+//     s.Push(4);
 
-    while(!s.Empty())
-    {
-        printf("%d\n" , s.Top());
-        s.Pop();
-    }
+//     while(!s.Empty())
+//     {
+//         printf("%d\n" , s.Top());
+//         s.Pop();
+//     }
 
-    s.Destroy();
-    return 0;
-}
+//     s.Destroy();
+//     return 0;
+// }
 
 
 

@@ -258,7 +258,8 @@ public:
     friend ostream& operator<<(ostream& _cout , const Date& d);
     template<class T>
     friend class LessDate;
-
+    template<class T>
+    friend class LessPDate;
 
 private:
     int _year;
@@ -283,6 +284,22 @@ public:
             (x._year == y._year && x._month == y._month && x._day < y._day);
             //return x < y;     
     }   
+
+};
+
+//自行量身定做仿函数 控制比较逻辑
+template<class T>
+class LessPDate
+{
+public:
+    bool operator()(const Date* x , const Date* y)  
+    {
+        return (x->_year < y->_year) || 
+            (x->_year == y->_year && x->_month < y->_month) ||
+            (x->_year == y->_year && x->_month == y->_month && x->_day < y->_day);
+            //return x < y;     
+    }   
+
 };
 
 void TestPriorityQueue4()
@@ -304,6 +321,24 @@ void TestPriorityQueue4()
     cout << endl;
 }
 
+void TestPriorityQueue5()
+{
+    //大堆
+    priority_queue<Date* , vector<Date*>, LessPDate<Date*>> q4;
+    q4.push(new Date(2023,1,1));
+    q4.push(new Date(2023,2,1));
+    q4.push(new Date(2023,3,1));
+    q4.push(new Date(2023,4,1));
+
+    int k;
+    cin >> k ;
+    while(k-- && !q4.empty())
+    {
+        cout << *(q4.top()) << " ";
+        q4.pop();
+    }
+    cout << endl;
+}
 
 int main()
 {
@@ -353,7 +388,8 @@ int main()
     // Greater<int> greaterFunc;
     // cout << greaterFunc(1,2) << endl;
     //TestPriorityQueue3();
-    TestPriorityQueue4();
+    //TestPriorityQueue4();
+    TestPriorityQueue5();
 }      
 
 

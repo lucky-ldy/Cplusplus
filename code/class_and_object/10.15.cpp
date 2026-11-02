@@ -299,10 +299,9 @@ public:
 
 };
 
-int main()
-{
-    int n = 5;
-    Solution s1;
-    cout << s1.Sum_Solution(n) << endl;
-}
-
+// int main()
+// {
+//     int n = 5;
+//     Solution s1;
+//     cout << s1.Sum_Solution(n) << endl;
+// }

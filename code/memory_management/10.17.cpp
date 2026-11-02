@@ -226,5 +226,14 @@ int main()
 	A1* p2 = new A1(1);
 	delete p2;
 
+	//A* p4 = (A*)malloc(sizeof(A));
+	//A* p4 = (A*)operator new(sizeof(A));
+	// replacement new，对指针指向的空间，显示调用构造函数初始化
+	//new(p4)A;
+	//new(p4)A(1);
+
+	//就接近于new的功能
+
 	return 0;
+    
 }

@@ -135,6 +135,7 @@ void test_vector3()
         cout << v1.operator[](0).operator[](1) << endl;
         // cout << v1[0] << endl;
         // cout << v1[1] << endl;
+        
         // cout << v1[2] << endl;
         
         for(auto& x : v1)

@@ -111,87 +111,87 @@ using namespace std;
 //------------------------------------
 
 //二、实现声明和定义分明日期类
-#include "10.13.h"
+// #include "10.13.h"
 
-Date::Date(int year  , int month , int day)
-{
-    _year = year;
-    _month = month;
-    _day = day;
-}
+// Date::Date(int year  , int month , int day)
+// {
+//     _year = year;
+//     _month = month;
+//     _day = day;
+// }
 
-bool Date::operator==(const Date& d)
-{
-    return this->_year == d._year
-    &&     this->_month == d._month
-    &&     this->_day == d._day;
-}
+// bool Date::operator==(const Date& d)
+// {
+//     return this->_year == d._year
+//     &&     this->_month == d._month
+//     &&     this->_day == d._day;
+// }
 
-bool Date::operator>(const Date& d)
-{
-    if(_year > d._year)    return true;
-    else if(_year == d._year)
-    {
-        if(_month > d._month)  return true;
-        else if(_month == d._month)
-        {
-            return _day > d._day;
-        }
-    }
-    return false;
-}
+// bool Date::operator>(const Date& d)
+// {
+//     if(_year > d._year)    return true;
+//     else if(_year == d._year)
+//     {
+//         if(_month > d._month)  return true;
+//         else if(_month == d._month)
+//         {
+//             return _day > d._day;
+//         }
+//     }
+//     return false;
+//}
 
-int GetMonthDay(int year , int month)
-{
-    assert(month > 0 && month < 13);
-    int monthDayArr[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
-    if(month == 2 && ((year % 4 == 0 && year % 100 !=0) || year % 400 == 0))
-        return 29; 
+// int GetMonthDay(int year , int month)
+// {
+//     assert(month > 0 && month < 13);
+//     int monthDayArr[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+//     if(month == 2 && ((year % 4 == 0 && year % 100 !=0) || year % 400 == 0))
+//         return 29; 
 
-    return monthDayArr[month];
-}
+//     return monthDayArr[month];
+// }
 
 //d1 += 100
- Date& Date::operator+=(int day) 
- {
-    _day += day;
-    while(_day > GetMonthDay(_year , _month))
-    {
-        _day -= GetMonthDay(_year , _month);
-        _month++;
-        if(_month == 13)
-        {
-            ++_year;
-            _month = 1;
-        }
-    }
-    return *this;
-    //this指向对象 *this就是对象类型
- }
+//  Date& Date::operator+=(int day) 
+//  {
+//     _day += day;
+//     while(_day > GetMonthDay(_year , _month))
+//     {
+//         _day -= GetMonthDay(_year , _month);
+//         _month++;
+//         if(_month == 13)
+//         {
+//             ++_year;
+//             _month = 1;
+//         }
+//     }
+//     return *this;
+//     //this指向对象 *this就是对象类型
+//  }
 
- //d1 + 100
-Date Date::operator+(int day) 
-{
-    Date tmp = *this;
-    tmp += day;
-    return tmp;
-}
+//  //d1 + 100
+// Date Date::operator+(int day) 
+// {
+//     Date tmp = *this;
+//     tmp += day;
+//     return tmp;
+// }
 
-//++d; 返回++之后的值
-Date& Date::operator++()
-{
-    *this += 1;
-    return *this;
-}
+// //++d; 返回++之后的值
+// Date& Date::operator++()
+// {
+//     *this += 1;
+//     return *this;
+// }
 
-//d++; 返回++之前的值
-Date Date::operator++(int)
-{
-    Date tmp(*this);
-    *this += 1;
+// //d++; 返回++之前的值
+// Date Date::operator++(int)
+// {
+//     Date tmp(*this);
+//     *this += 1;
 
-    return tmp;
-}
+//     return tmp;
+// }
 
 class A
 {
@@ -255,35 +255,35 @@ public:
 
 using namespace std;
 
-Date& Date::operator=(const Date& d)
-{
-    //防止自己给自己赋值 提高运行效率
-    if(this != &d)
-    {
-        _year = d._year;
-        _month = d._month;
-        _day = d._day;
-        return *this;
-    }
-} 
+// Date& Date::operator=(const Date& d)
+// {
+//     //防止自己给自己赋值 提高运行效率
+//     if(this != &d)
+//     {
+//         _year = d._year;
+//         _month = d._month;
+//         _day = d._day;
+//         return *this;
+//     }
+// } 
 
-int main()
-{
-    Date d1(2026,10,13);
-    Date d2(2026,10,14);
-    //拷贝构造，一个已经存在的对象取初始化一个要创建的对象
-    Date d3(d1);
-    Date d4 = d1;
-    d3.Print();
-    d4.Print();
+// int main()
+// {
+//     Date d1(2026,10,13);
+//     Date d2(2026,10,14);
+//     //拷贝构造，一个已经存在的对象取初始化一个要创建的对象
+//     Date d3(d1);
+//     Date d4 = d1;
+//     d3.Print();
+//     d4.Print();
 
-    //赋值重载, 一个已经存在的对象拷贝给另一个已经存在的对象
-    d1 = d2 = d3;
-    d1 = d2;
-    d1.Print();
-    d2.Print();
+//     //赋值重载, 一个已经存在的对象拷贝给另一个已经存在的对象
+//     d1 = d2 = d3;
+//     d1 = d2;
+//     d1.Print();
+//     d2.Print();
 
-}
+// }
 
 
 
