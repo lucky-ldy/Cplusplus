@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #define MAX_SIZE 1000
-
-/* ÇóÄ£Ê½´®µÄnextÊý×é£¬ÏÂ±ê´Ó0¿ªÊ¼ */
+//å®žéªŒä¸‰
+/* ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½nextï¿½ï¿½ï¿½é£¬ï¿½Â±ï¿½ï¿½0ï¿½ï¿½Ê¼ */
 void GetNext(char pattern[], int next[])
 {
     int index = 0;
@@ -25,7 +25,7 @@ void GetNext(char pattern[], int next[])
     }
 }
 
-/* ÕÒµ½Ê±·µ»ØÆðÊ¼ÏÂ±ê£¬Ã»ÓÐÕÒµ½Ê±·µ»Ø-1 */
+/* ï¿½Òµï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½Â±ê£¬Ã»ï¿½ï¿½ï¿½Òµï¿½Ê±ï¿½ï¿½ï¿½ï¿½-1 */
 int KmpSearch(char human[], char pattern[])
 {
     int next[MAX_SIZE];
@@ -36,7 +36,7 @@ int KmpSearch(char human[], char pattern[])
     int index;
 
     GetNext(pattern, next);
-    printf("nextÊý×é£¨ÏÂ±ê´Ó0¿ªÊ¼£©£º");
+    printf("nextï¿½ï¿½ï¿½é£¨ï¿½Â±ï¿½ï¿½0ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½");
     for (index = 0; index < patternLength; index++)
     {
         printf("%d ", next[index]);
@@ -52,12 +52,12 @@ int KmpSearch(char human[], char pattern[])
         }
         else
         {
-            printf("±È½Ï£ºÈËµÄµÚ%dÎ»%c£¬²¡¶¾µÄµÚ%dÎ»%c¡£",
+            printf("ï¿½È½Ï£ï¿½ï¿½ËµÄµï¿½%dÎ»%cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½%dÎ»%cï¿½ï¿½",
                    humanIndex + 1, human[humanIndex],
                    patternIndex + 1, pattern[patternIndex]);
             if (human[humanIndex] == pattern[patternIndex])
             {
-                printf("ÏàÍ¬£¬¼ÌÐø±È½ÏºóÃæµÄ×Ö·û¡£\n");
+                printf("ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È½Ïºï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½\n");
                 humanIndex++;
                 patternIndex++;
             }
@@ -65,11 +65,11 @@ int KmpSearch(char human[], char pattern[])
             {
                 if (next[patternIndex] == -1)
                 {
-                    printf("²»Í¬£¬ÈËµÄÎ»ÖÃºóÒÆ£¬´Ó²¡¶¾µÚ1Î»ÖØÐÂ±È½Ï¡£\n");
+                    printf("ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ëµï¿½Î»ï¿½Ãºï¿½ï¿½Æ£ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½1Î»ï¿½ï¿½ï¿½Â±È½Ï¡ï¿½\n");
                 }
                 else
                 {
-                    printf("²»Í¬£¬ÈËµÄÎ»ÖÃ²»±ä£¬²¡¶¾´ÓµÚ%dÎ»¼ÌÐø±È½Ï¡£\n",
+                    printf("ï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ëµï¿½Î»ï¿½Ã²ï¿½ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½%dÎ»ï¿½ï¿½ï¿½ï¿½ï¿½È½Ï¡ï¿½\n",
                            next[patternIndex] + 1);
                 }
                 patternIndex = next[patternIndex];
@@ -84,7 +84,7 @@ int KmpSearch(char human[], char pattern[])
     return -1;
 }
 
-/* ½«»·×´²¡¶¾´Ó²»Í¬Î»ÖÃÕ¹¿ª£¬ÔÙ·Ö±ð½øÐÐKMPÆ¥Åä */
+/* ï¿½ï¿½ï¿½ï¿½×´ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½Í¬Î»ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½Ù·Ö±ï¿½ï¿½ï¿½ï¿½KMPÆ¥ï¿½ï¿½ */
 int DetectVirus(char virus[], char human[])
 {
     char rotated[MAX_SIZE];
@@ -94,7 +94,7 @@ int DetectVirus(char virus[], char human[])
 
     if (virusLength > humanLength)
     {
-        printf("²¡¶¾ÐòÁÐ±ÈÈËµÄÐòÁÐ³¤£¬²»ÄÜÍêÕûÆ¥Åä¡£\n");
+        printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ä¡£\n");
         return 0;
     }
 
@@ -106,17 +106,17 @@ int DetectVirus(char virus[], char human[])
         }
         rotated[virusLength] = '\0';
 
-        printf("\nµÚ%d´ÎÕ¹¿ª£º%s\n", start + 1, rotated);
+        printf("\nï¿½ï¿½%dï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½%s\n", start + 1, rotated);
         position = KmpSearch(human, rotated);
         if (position >= 0)
         {
-            printf("Æ¥Åä³É¹¦£ºÈËµÄµÚ%dÎ»µ½µÚ%dÎ»Îª%s¡£\n",
+            printf("Æ¥ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ËµÄµï¿½%dÎ»ï¿½ï¿½ï¿½ï¿½%dÎ»Îª%sï¿½ï¿½\n",
                    position + 1, position + virusLength, rotated);
             return 1;
         }
-        printf("±¾´ÎÎ´ÕÒµ½ÍêÕûÆ¥Åä¡£\n");
+        printf("ï¿½ï¿½ï¿½ï¿½Î´ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ä¡£\n");
     }
-    printf("ËùÓÐÕ¹¿ª·½Ê½¶¼Î´ÕÒµ½ÍêÕûÆ¥Åä¡£\n");
+    printf("ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Î´ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ä¡£\n");
     return 0;
 }
 
@@ -126,15 +126,15 @@ int main(void)
     char human[MAX_SIZE];
     int choice, infected;
 
-    printf("========== ²¡¶¾DNA¸ÐÈ¾¼ì²â ==========\n");
-    printf("Ã¿×éÊäÈë£º²¡¶¾DNA ÈËµÄDNA£¬Á½¸öÐòÁÐÓÃ¿Õ¸ñ·Ö¸ô¡£\n");
-    printf("ÐòÁÐÓÉ×ÖÄ¸×é³É£¬Ã¿¸öÐòÁÐ²»³¬¹ý999¸ö×Ö·û¡£\n");
-    printf("²¡¶¾DNAÊÇ»·×´£¬ÈËµÄDNAÊÇÏßÐÔ£¬Çø·Ö×ÖÄ¸´óÐ¡Ð´¡£\n");
-    printf("Ê¾Àý1£ºabbab abbabaab£¬Ô¤ÆÚYES¡£\n");
-    printf("Ê¾Àý2£ºbaa cacdvcabacsd£¬Ô¤ÆÚYES¡£\n");
-    printf("Ê¾Àý3£ºabc def£¬Ô¤ÆÚNO¡£\n");
-    printf("ÊäÈë0 0Ò²¿ÉÒÔÖ±½Ó½áÊø¡£\n\n");
-    printf("¿ªÊ¼¼ì²âÇëÊäÈë1£¬ÍË³öÇëÊäÈë0£º");
+    printf("========== ï¿½ï¿½ï¿½ï¿½DNAï¿½ï¿½È¾ï¿½ï¿½ï¿½ ==========\n");
+    printf("Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ë£ºï¿½ï¿½ï¿½ï¿½DNA ï¿½Ëµï¿½DNAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿Õ¸ï¿½Ö¸ï¿½ï¿½ï¿½\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½É£ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½999ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½\n");
+    printf("ï¿½ï¿½ï¿½ï¿½DNAï¿½Ç»ï¿½×´ï¿½ï¿½ï¿½Ëµï¿½DNAï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Ð¡Ð´ï¿½ï¿½\n");
+    printf("Ê¾ï¿½ï¿½1ï¿½ï¿½abbab abbabaabï¿½ï¿½Ô¤ï¿½ï¿½YESï¿½ï¿½\n");
+    printf("Ê¾ï¿½ï¿½2ï¿½ï¿½baa cacdvcabacsdï¿½ï¿½Ô¤ï¿½ï¿½YESï¿½ï¿½\n");
+    printf("Ê¾ï¿½ï¿½3ï¿½ï¿½abc defï¿½ï¿½Ô¤ï¿½ï¿½NOï¿½ï¿½\n");
+    printf("ï¿½ï¿½ï¿½ï¿½0 0Ò²ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½\n\n");
+    printf("ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½");
     if (scanf("%d", &choice) != 1)
     {
         return 1;
@@ -144,7 +144,7 @@ int main(void)
     {
         if (choice == 1)
         {
-            printf("\nÇëÊäÈë²¡¶¾DNAºÍÈËµÄDNA£¨ÀýÈçabbab abbabaab£©£º\n");
+            printf("\nï¿½ï¿½ï¿½ï¿½ï¿½ë²¡ï¿½ï¿½DNAï¿½ï¿½ï¿½Ëµï¿½DNAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½abbab abbabaabï¿½ï¿½ï¿½ï¿½\n");
             if (scanf("%999s %999s", virus, human) != 2)
             {
                 return 1;
@@ -154,10 +154,10 @@ int main(void)
                 break;
             }
 
-            printf("²¡¶¾DNA£º%s\nÈËµÄDNA£º%s\n", virus, human);
-            printf("---------- Õ¹¿ªÓëÆ¥Åä¹ý³Ì ----------\n");
+            printf("ï¿½ï¿½ï¿½ï¿½DNAï¿½ï¿½%s\nï¿½Ëµï¿½DNAï¿½ï¿½%s\n", virus, human);
+            printf("---------- Õ¹ï¿½ï¿½ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½ ----------\n");
             infected = DetectVirus(virus, human);
-            printf("\n¼ì²â½á¹û£¨YES±íÊ¾¸ÐÈ¾£¬NO±íÊ¾Î´¸ÐÈ¾£©£º\n");
+            printf("\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½YESï¿½ï¿½Ê¾ï¿½ï¿½È¾ï¿½ï¿½NOï¿½ï¿½Ê¾Î´ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½\n");
             if (infected == 1)
             {
                 printf("YES\n\n");
@@ -169,15 +169,15 @@ int main(void)
         }
         else
         {
-            printf("Ñ¡ÔñÓÐÎó£¬ÇëÊäÈë1»ò0¡£\n");
+            printf("Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½0ï¿½ï¿½\n");
         }
 
-        printf("¼ÌÐøÇëÊäÈë1£¬ÍË³öÇëÊäÈë0£º");
+        printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½");
         if (scanf("%d", &choice) != 1)
         {
             return 1;
         }
     }
-    printf("³ÌÐòÒÑÍË³ö¡£\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½\n");
     return 0;
 }

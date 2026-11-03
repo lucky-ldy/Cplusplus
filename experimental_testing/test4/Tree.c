@@ -4,12 +4,12 @@
 #include <ctype.h>
 #include <math.h>
 #include <errno.h>
-
+//å®žéªŒå››
 #define MAX_SIZE 1001
 
 typedef struct TreeNode
 {
-    char op;                  // '#'±íÊ¾Êý×Ö£¬ÆäÓàÎªÔËËã·û
+    char op;                  // '#'ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½
     double value;
     struct TreeNode *left;
     struct TreeNode *right;
@@ -17,8 +17,8 @@ typedef struct TreeNode
 
 typedef struct Stack
 {
-    TreeNode *nodes[MAX_SIZE]; // ±£´æÒÑ¾­½¨Á¢µÄ×ÓÊ÷
-    char operators[MAX_SIZE]; // ±£´æÉÐÎ´´¦ÀíµÄÔËËã·û
+    TreeNode *nodes[MAX_SIZE]; // ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    char operators[MAX_SIZE]; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     int nodeTop;
     int operatorTop;
 } Stack;
@@ -28,7 +28,7 @@ TreeNode *CreateNode(char op, double value)
     TreeNode *node = (TreeNode *)malloc(sizeof(TreeNode));
     if (node == NULL)
     {
-        printf("ÄÚ´æÉêÇëÊ§°Ü¡£\n");
+        printf("ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü¡ï¿½\n");
         exit(EXIT_FAILURE);
     }
     node->op = op;
@@ -56,7 +56,7 @@ int Priority(char op)
     return 0;
 }
 
-// ÏÈ³öÕ»µÄÊÇÓÒ×ÓÊ÷£¬ºó³öÕ»µÄÊÇ×ó×ÓÊ÷
+// ï¿½È³ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 int MergeTree(Stack *stack)
 {
     if (stack->nodeTop < 1)
@@ -66,7 +66,7 @@ int MergeTree(Stack *stack)
     root->right = stack->nodes[stack->nodeTop--];
     root->left = stack->nodes[stack->nodeTop--];
     stack->nodes[++stack->nodeTop] = root;
-    printf("½¨Ê÷£ºÒÔ %c Îª¸ù£¬Á¬½Ó×ó¡¢ÓÒ×ÓÊ÷¡£\n", op);
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ %c Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n", op);
     return 1;
 }
 
@@ -76,7 +76,7 @@ TreeNode *BuildTree(char expression[], int *finished)
     stack.nodeTop = -1;
     stack.operatorTop = -1;
     int index = 0;
-    int needNumber = 1; // 1±íÊ¾µ±Ç°Ó¦¶ÁÊý×Ö»ò×óÀ¨ºÅ
+    int needNumber = 1; // 1ï¿½ï¿½Ê¾ï¿½ï¿½Ç°Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     *finished = 0;
 
     while (expression[index] != '\0')
@@ -99,7 +99,7 @@ TreeNode *BuildTree(char expression[], int *finished)
             else if (isdigit((unsigned char)current) ||
                      current == '.' || current == '+' || current == '-')
             {
-                // strtod¶ÁÈ¡Ò»¸öÍêÕûÊýÖµ£¬²¢ÈÃendÖ¸ÏòËüºóÃæµÄ×Ö·û
+                // strtodï¿½ï¿½È¡Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½endÖ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
                 char *end;
                 errno = 0;
                 double number = strtod(expression + index, &end);
@@ -108,7 +108,7 @@ TreeNode *BuildTree(char expression[], int *finished)
                     goto error;
                 index = (int)(end - expression);
                 stack.nodes[++stack.nodeTop] = CreateNode('#', number);
-                printf("½¨Ê÷£ºÊý×Ö %.10g ×÷ÎªÒ¶×Ó½áµã¡£\n", number);
+                printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ %.10g ï¿½ï¿½ÎªÒ¶ï¿½Ó½ï¿½ã¡£\n", number);
                 needNumber = 0;
             }
             else
@@ -138,7 +138,7 @@ TreeNode *BuildTree(char expression[], int *finished)
             }
             if (stack.operatorTop < 0)
                 goto error;
-            stack.operatorTop--; // ¶ªÆúÓëÓÒÀ¨ºÅÅä¶ÔµÄ×óÀ¨ºÅ
+            stack.operatorTop--; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             index++;
         }
         else
@@ -157,7 +157,7 @@ TreeNode *BuildTree(char expression[], int *finished)
     {
         if (stack.nodeTop == -1 && stack.operatorTop == -1)
         {
-            *finished = 1; // µ¥¶ÀÊäÈëµÈºÅ£¬°´ÌâÄ¿ÒªÇó½áÊø
+            *finished = 1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÈºÅ£ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Òªï¿½ï¿½ï¿½ï¿½ï¿½
             return NULL;
         }
         goto error;
@@ -173,13 +173,13 @@ TreeNode *BuildTree(char expression[], int *finished)
     return stack.nodes[0];
 
 error:
-    printf("ÊäÈëÓÐÎó£ºÇë¼ì²éÊý×Ö¡¢ÔËËã·û¡¢À¨ºÅºÍÄ©Î²µÄµÈºÅ¡£\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½Ä©Î²ï¿½ÄµÈºÅ¡ï¿½\n");
     while (stack.nodeTop >= 0)
         FreeTree(stack.nodes[stack.nodeTop--]);
     return NULL;
 }
 
-// ÖÐÐò±éÀúÊ±¼ÓÉÏÀ¨ºÅ£¬ÏÔÊ¾±í´ïÊ½Ê÷¶ÔÓ¦µÄÔËËã¹ØÏµ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµ
 void PrintExpression(TreeNode *root)
 {
     if (root->op == '#')
@@ -206,7 +206,7 @@ void PostOrder(TreeNode *root)
         printf("%c ", root->op);
 }
 
-// ºóÐòÇóÖµ£ºÏÈËã×ó×ÓÊ÷£¬ÔÙËãÓÒ×ÓÊ÷£¬×îºó´¦Àí¸ù½áµã
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 double EvaluateTree(TreeNode *root, int *ok, int *step)
 {
     if (root->op == '#')
@@ -227,7 +227,7 @@ double EvaluateTree(TreeNode *root, int *ok, int *step)
         case '/':
             if (right == 0)
             {
-                printf("¼ÆËãÊ§°Ü£º³ýÊý²»ÄÜÎª0¡£\n");
+                printf("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½\n");
                 *ok = 0;
                 return 0;
             }
@@ -236,11 +236,11 @@ double EvaluateTree(TreeNode *root, int *ok, int *step)
     }
     if (!isfinite(result))
     {
-        printf("¼ÆËãÊ§°Ü£º½á¹û³¬³ö¿É±íÊ¾·¶Î§¡£\n");
+        printf("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É±ï¿½Ê¾ï¿½ï¿½Î§ï¿½ï¿½\n");
         *ok = 0;
         return 0;
     }
-    printf("µÚ%d²½£º%.10g %c %.10g = %.10g\n",
+    printf("ï¿½ï¿½%dï¿½ï¿½ï¿½ï¿½%.10g %c %.10g = %.10g\n",
            (*step)++, left, root->op, right, result);
     return result;
 }
@@ -256,12 +256,12 @@ int main(void)
 {
     char expression[MAX_SIZE + 1];
     int choice;
-    printf("========== »ùÓÚ¶þ²æÊ÷µÄ±í´ïÊ½ÇóÖµ ==========\n");
-    printf("Ö§³Ö+¡¢-¡¢*¡¢/¡¢À¨ºÅ¡¢¶àÎ»Êý¡¢Ð¡ÊýºÍ´ø·ûºÅµÄÊýÖµ¡£\n");
-    printf("±í´ïÊ½ÒÔ=½áÎ²£¬×î¶à1000¸ö×Ö·û£¬ÔÊÐí¿Õ¸ñ¡£\n");
-    printf("Ê¾Àý£º2*(2+5)=£¬½á¹ûÎª14£»1+2=£¬½á¹ûÎª3¡£\n");
-    printf("¸ºÊýÐ´³É-2»ò(-2)£¬¶ÔÕû¸öÀ¨ºÅÈ¡¸ºÇëÐ´³É0-(...)¡£\n");
-    printf("µ¥¶ÀÊäÈë=Ò²¿ÉÒÔ½áÊø¡£¿ªÊ¼ÇëÊäÈë1£¬ÍË³öÇëÊäÈë0£º");
+    printf("========== ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Öµ ==========\n");
+    printf("Ö§ï¿½ï¿½+ï¿½ï¿½-ï¿½ï¿½*ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½Å¡ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Í´ï¿½ï¿½ï¿½ï¿½Åµï¿½ï¿½ï¿½Öµï¿½ï¿½\n");
+    printf("ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½=ï¿½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½1000ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¸ï¿½\n");
+    printf("Ê¾ï¿½ï¿½ï¿½ï¿½2*(2+5)=ï¿½ï¿½ï¿½ï¿½ï¿½Îª14ï¿½ï¿½1+2=ï¿½ï¿½ï¿½ï¿½ï¿½Îª3ï¿½ï¿½\n");
+    printf("ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½-2ï¿½ï¿½(-2)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½0-(...)ï¿½ï¿½\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=Ò²ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½");
     while (scanf("%d", &choice) == 1)
     {
         ClearLine();
@@ -269,7 +269,7 @@ int main(void)
             break;
         if (choice == 1)
         {
-            printf("\nÇëÊäÈë±í´ïÊ½£º\n");
+            printf("\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½\n");
             if (fgets(expression, sizeof(expression), stdin) == NULL)
                 break;
             size_t length = strcspn(expression, "\r\n");
@@ -277,35 +277,35 @@ int main(void)
                 (expression[length] == '\0' && !feof(stdin)))
             {
                 ClearLine();
-                printf("ÊäÈë¹ý³¤£¬Çë¿ØÖÆÔÚ1000¸ö×Ö·ûÒÔÄÚ¡£\n");
+                printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1000ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ú¡ï¿½\n");
             }
             else
             {
                 expression[length] = '\0';
                 int finished;
-                printf("---------- ±í´ïÊ½Ê÷½¨Á¢¹ý³Ì ----------\n");
+                printf("---------- ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ----------\n");
                 TreeNode *root = BuildTree(expression, &finished);
                 if (finished)
                     break;
                 if (root != NULL)
                 {
-                    printf("ÖÐÐò±í´ïÊ½£º");
+                    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½");
                     PrintExpression(root);
-                    printf("\nºóÐò±éÀú£º");
+                    printf("\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                     PostOrder(root);
-                    printf("\n---------- ºóÐò¼ÆËã¹ý³Ì ----------\n");
+                    printf("\n---------- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ----------\n");
                     int ok = 1, step = 1;
                     double result = EvaluateTree(root, &ok, &step);
                     if (ok)
-                        printf("¼ÆËã½á¹û£º%.10g\n", result);
+                        printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½%.10g\n", result);
                     FreeTree(root);
                 }
             }
         }
         else
-            printf("Ñ¡ÔñÓÐÎó£¬ÇëÊäÈë1»ò0¡£\n");
-        printf("\n¼ÌÐøÇëÊäÈë1£¬ÍË³öÇëÊäÈë0£º");
+            printf("Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½0ï¿½ï¿½\n");
+        printf("\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½");
     }
-    printf("³ÌÐòÒÑÍË³ö¡£\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½\n");
     return 0;
 }

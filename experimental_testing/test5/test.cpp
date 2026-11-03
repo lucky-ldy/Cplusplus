@@ -1,4 +1,7 @@
+
+//å®žéªŒäº”
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MAX_SIZE 100
 #define INF 1000000000000LL
@@ -18,20 +21,20 @@ int FindCity(Graph *graph, char name)
     return -1;
 }
 
-// ¶ÁÈ¡³ÇÊÐ¡¢ÓÐÏòµÀÂ·ºÍ²éÑ¯ÆðÖÕµã£»0 0±íÊ¾½áÊø
+// ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½Í²ï¿½Ñ¯ï¿½ï¿½ï¿½Õµã£»0 0ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
 int ReadGraph(Graph *graph, int *start, int *end)
 {
-    printf("ÇëÊäÈë³ÇÊÐ¸öÊýnºÍµÀÂ·ÌõÊým£¨0 0½áÊø£©£º\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½nï¿½Íµï¿½Â·ï¿½ï¿½ï¿½ï¿½mï¿½ï¿½0 0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n");
     if (scanf("%d%d", &graph->n, &graph->m) != 2)
         return 0;
     if (graph->n == 0 && graph->m == 0)
         return 0;
     if (graph->n < 1 || graph->n > MAX_SIZE || graph->m < 0)
     {
-        printf("ÊäÈëÓÐÎó£º³ÇÊÐ¸öÊýÓ¦Îª1~100£¬µÀÂ·ÌõÊý²»ÄÜÎª¸º¡£\n");
+        printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£º³ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½Ó¦Îª1~100ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½\n");
         return 0;
     }
-    printf("ÇëÊäÈë%d¸ö²»Í¬µÄµ¥×Ö·û³ÇÊÐÃû£¬ÓÃ¿Õ¸ñ·Ö¸ô£º\n", graph->n);
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½%dï¿½ï¿½ï¿½ï¿½Í¬ï¿½Äµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿Õ¸ï¿½Ö¸ï¿½ï¿½ï¿½\n", graph->n);
     for (int i = 0; i < graph->n; i++)
     {
         if (scanf(" %c", &graph->city[i]) != 1)
@@ -39,7 +42,7 @@ int ReadGraph(Graph *graph, int *start, int *end)
         for (int j = 0; j < i; j++)
             if (graph->city[j] == graph->city[i])
             {
-                printf("ÊäÈëÓÐÎó£º³ÇÊÐÃû²»ÄÜÖØ¸´¡£\n");
+                printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£º³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½\n");
                 return 0;
             }
     }
@@ -47,7 +50,7 @@ int ReadGraph(Graph *graph, int *start, int *end)
         for (int j = 0; j < graph->n; j++)
             graph->edge[i][j] = (i == j) ? 0 : INF;
 
-    printf("ÇëÖðÐÐÊäÈë%dÌõÓÐÏòµÀÂ·£ºÆðµã ÖÕµã ³¤¶È¡£\n", graph->m);
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½%dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õµï¿½ ï¿½ï¿½ï¿½È¡ï¿½\n", graph->m);
     for (int i = 0; i < graph->m; i++)
     {
         char from, to;
@@ -58,22 +61,22 @@ int ReadGraph(Graph *graph, int *start, int *end)
         int v = FindCity(graph, to);
         if (u == -1 || v == -1 || length < 0 || length > 1000000000LL)
         {
-            printf("ÊäÈëÓÐÎó£º³ÇÊÐÐëÒÑÁÐ³ö£¬³¤¶ÈÐëÎª0~1000000000¡£\n");
+            printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£º³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0~1000000000ï¿½ï¿½\n");
             return 0;
         }
-        // Í¬·½ÏòµÄÖØ¸´µÀÂ·Ö»±£Áô½Ï¶ÌµÄÒ»Ìõ£»²»Ìí¼Ó·´Ïò±ß
+        // Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½Â·Ö»ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶Ìµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½
         if (length < graph->edge[u][v])
             graph->edge[u][v] = length;
     }
     char from, to;
-    printf("ÇëÊäÈë´ý²éÑ¯µÄÆðµãºÍÖÕµã£º\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµã£º\n");
     if (scanf(" %c %c", &from, &to) != 2)
         return 0;
     *start = FindCity(graph, from);
     *end = FindCity(graph, to);
     if (*start == -1 || *end == -1)
     {
-        printf("ÊäÈëÓÐÎó£º²éÑ¯³ÇÊÐ²»ÔÚ³ÇÊÐÁÐ±íÖÐ¡£\n");
+        printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£º²ï¿½Ñ¯ï¿½ï¿½ï¿½Ð²ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ð¡ï¿½\n");
         return 0;
     }
     return 1;
@@ -81,8 +84,8 @@ int ReadGraph(Graph *graph, int *start, int *end)
 
 void PrintGraph(Graph *graph)
 {
-    printf("\nÁÚ½Ó¾ØÕó£¨ÐÐ±íÊ¾³ö·¢³ÇÊÐ£¬ÁÐ±íÊ¾µ½´ï³ÇÊÐ£©£º\n");
-    printf("INF±íÊ¾Ã»ÓÐÖ±½ÓµÀÂ·£¬¶Ô½ÇÏßÎª0¡£\n%12s", "");
+    printf("\nï¿½Ú½Ó¾ï¿½ï¿½ï¿½ï¿½Ð±ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½Ð±ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½\n");
+    printf("INFï¿½ï¿½Ê¾Ã»ï¿½ï¿½Ö±ï¿½Óµï¿½Â·ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½\n%12s", "");
     for (int i = 0; i < graph->n; i++)
         printf("%12c", graph->city[i]);
     printf("\n");
@@ -100,7 +103,7 @@ void PrintGraph(Graph *graph)
 
 void PrintDistance(Graph *graph, long long distance[])
 {
-    printf("µ±Ç°¾àÀë£º");
+    printf("ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ë£º");
     for (int i = 0; i < graph->n; i++)
         if (distance[i] == INF)
             printf("%c=INF  ", graph->city[i]);
@@ -113,10 +116,10 @@ void PrintPath(Graph *graph, int previous[], int end)
 {
     int path[MAX_SIZE];
     int count = 0;
-    // ´ÓÖÕµãÑØÇ°Çý»ØËÝ£¬ÔÙµ¹ÐòÊä³ö
+    // ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½Ùµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     for (int current = end; current != -1; current = previous[current])
         path[count++] = current;
-    printf("×î¶ÌÂ·¾¶£º");
+    printf("ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½");
     for (int i = count - 1; i >= 0; i--)
         printf("%c%s", graph->city[path[i]], i == 0 ? "\n" : " ");
 }
@@ -133,23 +136,23 @@ void Dijkstra(Graph *graph, int start, int end)
         previous[i] = -1;
     }
     distance[start] = 0;
-    printf("\n---------- Dijkstra¼ÆËã¹ý³Ì ----------\n");
+    printf("\n---------- Dijkstraï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ----------\n");
     PrintDistance(graph, distance);
     for (int step = 1; step <= graph->n; step++)
     {
         int u = -1;
-        // ´ÓÎ´È·¶¨µÄ³ÇÊÐÖÐÑ¡Ôñµ±Ç°¾àÀë×îÐ¡µÄÒ»¸ö
+        // ï¿½ï¿½Î´È·ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Ò»ï¿½ï¿½
         for (int i = 0; i < graph->n; i++)
             if (!visited[i] && distance[i] < INF &&
                 (u == -1 || distance[i] < distance[u]))
                 u = i;
         if (u == -1)
-            break; // Ê£ÏÂµÄ³ÇÊÐ¾ù²»¿É´ï
+            break; // Ê£ï¿½ÂµÄ³ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½É´ï¿½
         visited[u] = 1;
-        printf("µÚ%dÂÖ£ºÈ·ÈÏ³ÇÊÐ%c£¬×î¶Ì¾àÀëÎª%lld¡£\n",
+        printf("ï¿½ï¿½%dï¿½Ö£ï¿½È·ï¿½Ï³ï¿½ï¿½ï¿½%cï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½Îª%lldï¿½ï¿½\n",
                step, graph->city[u], distance[u]);
         if (u == end)
-            break; // ÖÕµãµÄ×î¶Ì¾àÀëÒÑ¾­È·¶¨
+            break; // ï¿½Õµï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½È·ï¿½ï¿½
         for (int v = 0; v < graph->n; v++)
         {
             if (visited[v] || graph->edge[u][v] == INF)
@@ -157,28 +160,28 @@ void Dijkstra(Graph *graph, int start, int end)
             long long candidate = distance[u] + graph->edge[u][v];
             if (candidate < distance[v])
             {
-                printf("¸üÐÂ%c£º%lld + %lld = %lld£¬Ô­¾àÀë",
+                printf("ï¿½ï¿½ï¿½ï¿½%cï¿½ï¿½%lld + %lld = %lldï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½",
                        graph->city[v], distance[u], graph->edge[u][v], candidate);
                 if (distance[v] == INF)
                     printf("INF");
                 else
                     printf("%lld", distance[v]);
-                printf("£¬Ç°Çý¸ÄÎª%c¡£\n", graph->city[u]);
+                printf("ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Îª%cï¿½ï¿½\n", graph->city[u]);
                 distance[v] = candidate;
                 previous[v] = u;
             }
         }
         PrintDistance(graph, distance);
     }
-    printf("---------- ²éÑ¯½á¹û ----------\n");
+    printf("---------- ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ ----------\n");
     if (distance[end] == INF)
     {
-        printf("³ÇÊÐ%cÎÞ·¨µ½´ï³ÇÊÐ%c¡£\n", graph->city[start], graph->city[end]);
-        printf("×î¶ÌÂ·¾¶£º²»´æÔÚ\n");
+        printf("ï¿½ï¿½ï¿½ï¿½%cï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½%cï¿½ï¿½\n", graph->city[start], graph->city[end]);
+        printf("ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n");
     }
     else
     {
-        printf("×î¶ÌÂ·¾¶³¤¶È£º%lld\n", distance[end]);
+        printf("ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½%lld\n", distance[end]);
         PrintPath(graph, previous, end);
     }
 }
@@ -187,13 +190,13 @@ int main(void)
 {
     Graph graph;
     int choice, start, end;
-    printf("========== ×î¶ÌÂ·¾¶Çó½â ==========\n");
-    printf("²ÉÓÃÓÐÏòÍ¼ºÍDijkstraËã·¨£¬µÀÂ·³¤¶È²»ÄÜÎª¸º¡£\n");
-    printf("ÊäÈëË³Ðò£ºn m¡¢n¸ö³ÇÊÐÃû¡¢mÌõµÀÂ·¡¢²éÑ¯ÆðµãºÍÖÕµã¡£\n");
-    printf("³ÇÊÐÃûÓÃµ¥¸öÓ¢ÎÄ×ÖÄ¸»òÆäËûµ¥×Ö½Ú·Ç¿Õ°××Ö·û£¬Çø·Ö´óÐ¡Ð´¡£\n");
-    printf("ÀýÈç£º3 3 / A B C / A B 1 / B C 1 / C A 3 / A C\n");
-    printf("ÉÏÀýÖÐµÄÐ±Ïß±íÊ¾»»ÐÐ£¬²»ÐèÒªÊäÈë¡£\n");
-    printf("¿ªÊ¼ÇëÊäÈë1£¬ÍË³öÇëÊäÈë0£º");
+    printf("========== ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ ==========\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Dijkstraï¿½ã·¨ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½È²ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½\n");
+    printf("ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½n mï¿½ï¿½nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½Õµã¡£\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Ó¢ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö½Ú·Ç¿Õ°ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð¡Ð´ï¿½ï¿½\n");
+    printf("ï¿½ï¿½ï¿½ç£º3 3 / A B C / A B 1 / B C 1 / C A 3 / A C\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ð±ï¿½ß±ï¿½Ê¾ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ë¡£\n");
+    printf("ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½");
     while (scanf("%d", &choice) == 1)
     {
         if (choice == 0)
@@ -206,9 +209,9 @@ int main(void)
             Dijkstra(&graph, start, end);
         }
         else
-            printf("Ñ¡ÔñÓÐÎó£¬ÇëÊäÈë1»ò0¡£\n");
-        printf("\n¼ÌÐøÇëÊäÈë1£¬ÍË³öÇëÊäÈë0£º");
+            printf("Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½0ï¿½ï¿½\n");
+        printf("\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½");
     }
-    printf("³ÌÐòÒÑÍË³ö¡£\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½\n");
     return 0;
 }

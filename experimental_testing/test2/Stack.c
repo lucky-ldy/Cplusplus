@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define MAX_SIZE 256
 #define MAX_FORMULA 768
-
+//å®žéªŒäºŒ
 typedef struct Stack
 {
     int data[MAX_SIZE];
@@ -9,7 +9,7 @@ typedef struct Stack
     int top;
 } Stack;
 
-/* ¸´ÖÆËãÊ½×Ö·û´® */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ö·ï¿½ï¿½ï¿½ */
 void CopyString(char target[], char source[])
 {
     int index = 0;
@@ -26,7 +26,7 @@ void StackInit(Stack *stack)
     stack->top = -1;
 }
 
-/* Í¬Ê±±£´æÊýÖµºÍËü¶ÔÓ¦µÄËãÊ½ */
+/* Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ê½ */
 void StackPush(Stack *stack, int value, char formula[])
 {
     stack->top++;
@@ -34,7 +34,7 @@ void StackPush(Stack *stack, int value, char formula[])
     CopyString(stack->formula[stack->top], formula);
 }
 
-/* Í¬Ê±È¡³öÊýÖµºÍËü¶ÔÓ¦µÄËãÊ½ */
+/* Í¬Ê±È¡ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½Ê½ */
 int StackPop(Stack *stack, char formula[])
 {
     int value = stack->data[stack->top];
@@ -43,7 +43,7 @@ int StackPop(Stack *stack, char formula[])
     return value;
 }
 
-/* ½«×óÓÒÁ½¸öËãÊ½×éºÏ³É£º(×óËãÊ½ ÔËËã·û ÓÒËãÊ½) */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Ï³É£ï¿½(ï¿½ï¿½ï¿½ï¿½Ê½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ê½) */
 void BuildFormula(char formula[], char left[], char right[], char op)
 {
     int index = 0;
@@ -77,7 +77,7 @@ int Calculate(int left, int right, char op)
     return 0;
 }
 
-/* ÊäÈë°´ÌâÄ¿Ô¼¶¨ÊÇÓÐÐ§µÄºó×º±í´ïÊ½ */
+/* ï¿½ï¿½ï¿½ë°´ï¿½ï¿½Ä¿Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½Äºï¿½×ºï¿½ï¿½ï¿½ï¿½Ê½ */
 int EvaluatePostfix(char expression[], char finalFormula[])
 {
     Stack stack;
@@ -120,7 +120,7 @@ int EvaluatePostfix(char expression[], char finalFormula[])
             }
             number = sign * number;
 
-            /* ±£´æÊý×ÖµÄÎÄ×Ö£¬¸ºÊýÍâÃæ¼ÓÀ¨ºÅ */
+            /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
             position = 0;
             if (sign == -1)
             {
@@ -139,12 +139,12 @@ int EvaluatePostfix(char expression[], char finalFormula[])
         }
         else
         {
-            /* ÏÈÈ¡ÓÒ±ß£¬ÔÙÈ¡×ó±ß£¬±£ÁôËüÃÇ¸÷×ÔµÄËãÊ½ */
+            /* ï¿½ï¿½È¡ï¿½Ò±ß£ï¿½ï¿½ï¿½È¡ï¿½ï¿½ß£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½Ôµï¿½ï¿½ï¿½Ê½ */
             right = StackPop(&stack, rightFormula);
             left = StackPop(&stack, leftFormula);
             result = Calculate(left, right, current);
             BuildFormula(formula, leftFormula, rightFormula, current);
-            printf("µÚ%d²½£º%s\n", step, formula);
+            printf("ï¿½ï¿½%dï¿½ï¿½ï¿½ï¿½%s\n", step, formula);
             StackPush(&stack, result, formula);
             step++;
             index++;
@@ -159,14 +159,14 @@ int main(void)
     char finalFormula[MAX_FORMULA];
     int result, choice;
 
-    printf("========== ºó×º±í´ïÊ½ÇóÖµ ==========\n");
-    printf("ÊäÈë¸ñÊ½£ºÕûÊýºÍÔËËã·ûÖ®¼äÓÃÓ¢ÎÄ¶ººÅ·Ö¸ô¡£\n");
-    printf("Ö§³Ö+¡¢-¡¢*¡¢/£¬Ö§³Ö¶àÎ»ÕûÊýºÍ¸ºÕûÊý¡£\n");
-    printf("²»ÒªÊäÈë¿Õ¸ñ¡¢À¨ºÅ»òµÈºÅ£¬³¤¶È²»³¬¹ý255¸ö×Ö·û¡£\n");
-    printf("Ê¾Àý£º2,1,+,3,*  ¶ÔÓ¦ËãÊ½(2+1)*3¡£\n");
-    printf("Ê¾Àý£º4,13,5,/,+ ¶ÔÓ¦ËãÊ½4+13/5¡£\n");
-    printf("³ý·¨°´ÕûÊý¼ÆËã£¬ÀýÈç13/5Îª2¡£\n\n");
-    printf("¿ªÊ¼¼ÆËãÇëÊäÈë1£¬ÍË³öÇëÊäÈë0£º");
+    printf("========== ï¿½ï¿½×ºï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Öµ ==========\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ó¢ï¿½Ä¶ï¿½ï¿½Å·Ö¸ï¿½ï¿½ï¿½\n");
+    printf("Ö§ï¿½ï¿½+ï¿½ï¿½-ï¿½ï¿½*ï¿½ï¿½/ï¿½ï¿½Ö§ï¿½Ö¶ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\n");
+    printf("ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Õ¸ï¿½ï¿½ï¿½ï¿½Å»ï¿½ÈºÅ£ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½ï¿½ï¿½ï¿½255ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½\n");
+    printf("Ê¾ï¿½ï¿½ï¿½ï¿½2,1,+,3,*  ï¿½ï¿½Ó¦ï¿½ï¿½Ê½(2+1)*3ï¿½ï¿½\n");
+    printf("Ê¾ï¿½ï¿½ï¿½ï¿½4,13,5,/,+ ï¿½ï¿½Ó¦ï¿½ï¿½Ê½4+13/5ï¿½ï¿½\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½ï¿½ï¿½ï¿½13/5Îª2ï¿½ï¿½\n\n");
+    printf("ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½");
     if (scanf("%d", &choice) != 1)
     {
         return 1;
@@ -175,27 +175,27 @@ int main(void)
     {
         if (choice == 1)
         {
-            printf("\nÇëÊäÈëºó×º±í´ïÊ½£¨ÀýÈç2,1,+,3,*£©£º\n");
+            printf("\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ºï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2,1,+,3,*ï¿½ï¿½ï¿½ï¿½\n");
             if (scanf("%255s", expression) != 1)
             {
                 return 1;
             }
-            printf("\nÊäÈëµÄºó×º±í´ïÊ½£º%s\n", expression);
-            printf("---------- ËãÊ½´î½¨¹ý³Ì ----------\n");
+            printf("\nï¿½ï¿½ï¿½ï¿½Äºï¿½×ºï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½%s\n", expression);
+            printf("---------- ï¿½ï¿½Ê½ï¿½î½¨ï¿½ï¿½ï¿½ï¿½ ----------\n");
             result = EvaluatePostfix(expression, finalFormula);
-            printf("ÍêÕûËãÊ½£º%s\n", finalFormula);
-            printf("¼ÆËã½á¹û£º%d\n\n", result);
+            printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½%s\n", finalFormula);
+            printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½%d\n\n", result);
         }
         else
         {
-            printf("Ñ¡ÔñÓÐÎó£¬ÇëÊäÈë1»ò0¡£\n");
+            printf("Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½0ï¿½ï¿½\n");
         }
-        printf("¼ÌÐøÇëÊäÈë1£¬ÍË³öÇëÊäÈë0£º");
+        printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½");
         if (scanf("%d", &choice) != 1)
         {
             return 1;
         }
     }
-    printf("³ÌÐòÒÑÍË³ö¡£\n");
+    printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½\n");
     return 0;
 }
