@@ -1,7 +1,8 @@
 #include <stdio.h>
 #define MAX_SIZE 256
 #define MAX_FORMULA 768
-//实验二
+// ???
+
 typedef struct Stack
 {
     int data[MAX_SIZE];
@@ -9,7 +10,7 @@ typedef struct Stack
     int top;
 } Stack;
 
-/* ������ʽ�ַ��� */
+/* 复制算式字符串 */
 void CopyString(char target[], char source[])
 {
     int index = 0;
@@ -26,7 +27,7 @@ void StackInit(Stack *stack)
     stack->top = -1;
 }
 
-/* ͬʱ������ֵ������Ӧ����ʽ */
+/* 同时保存数值和它对应的算式 */
 void StackPush(Stack *stack, int value, char formula[])
 {
     stack->top++;
@@ -34,7 +35,7 @@ void StackPush(Stack *stack, int value, char formula[])
     CopyString(stack->formula[stack->top], formula);
 }
 
-/* ͬʱȡ����ֵ������Ӧ����ʽ */
+/* 同时取出数值和它对应的算式 */
 int StackPop(Stack *stack, char formula[])
 {
     int value = stack->data[stack->top];
@@ -43,7 +44,7 @@ int StackPop(Stack *stack, char formula[])
     return value;
 }
 
-/* ������������ʽ��ϳɣ�(����ʽ ����� ����ʽ) */
+/* 将左右两个算式组合成：(左算式 运算符 右算式) */
 void BuildFormula(char formula[], char left[], char right[], char op)
 {
     int index = 0;
@@ -77,7 +78,7 @@ int Calculate(int left, int right, char op)
     return 0;
 }
 
-/* ���밴��ĿԼ������Ч�ĺ�׺����ʽ */
+/* 输入按题目约定是有效的后缀表达式 */
 int EvaluatePostfix(char expression[], char finalFormula[])
 {
     Stack stack;
@@ -120,7 +121,7 @@ int EvaluatePostfix(char expression[], char finalFormula[])
             }
             number = sign * number;
 
-            /* �������ֵ����֣�������������� */
+            /* 保存数字的文字，负数外面加括号 */
             position = 0;
             if (sign == -1)
             {
@@ -139,12 +140,12 @@ int EvaluatePostfix(char expression[], char finalFormula[])
         }
         else
         {
-            /* ��ȡ�ұߣ���ȡ��ߣ��������Ǹ��Ե���ʽ */
+            /* 先取右边，再取左边，保留它们各自的算式 */
             right = StackPop(&stack, rightFormula);
             left = StackPop(&stack, leftFormula);
             result = Calculate(left, right, current);
             BuildFormula(formula, leftFormula, rightFormula, current);
-            printf("��%d����%s\n", step, formula);
+            printf("第%d步：%s\n", step, formula);
             StackPush(&stack, result, formula);
             step++;
             index++;
@@ -159,14 +160,14 @@ int main(void)
     char finalFormula[MAX_FORMULA];
     int result, choice;
 
-    printf("========== ��׺����ʽ��ֵ ==========\n");
-    printf("�����ʽ�������������֮����Ӣ�Ķ��ŷָ���\n");
-    printf("֧��+��-��*��/��֧�ֶ�λ�����͸�������\n");
-    printf("��Ҫ����ո����Ż�Ⱥţ����Ȳ�����255���ַ���\n");
-    printf("ʾ����2,1,+,3,*  ��Ӧ��ʽ(2+1)*3��\n");
-    printf("ʾ����4,13,5,/,+ ��Ӧ��ʽ4+13/5��\n");
-    printf("�������������㣬����13/5Ϊ2��\n\n");
-    printf("��ʼ����������1���˳�������0��");
+    printf("========== 后缀表达式求值 ==========\n");
+    printf("输入格式：整数和运算符之间用英文逗号分隔。\n");
+    printf("支持+、-、*、/，支持多位整数和负整数。\n");
+    printf("不要输入空格、括号或等号，长度不超过255个字符。\n");
+    printf("示例：2,1,+,3,*  对应算式(2+1)*3。\n");
+    printf("示例：4,13,5,/,+ 对应算式4+13/5。\n");
+    printf("除法按整数计算，例如13/5为2。\n\n");
+    printf("开始计算请输入1，退出请输入0：");
     if (scanf("%d", &choice) != 1)
     {
         return 1;
@@ -175,27 +176,27 @@ int main(void)
     {
         if (choice == 1)
         {
-            printf("\n�������׺����ʽ������2,1,+,3,*����\n");
+            printf("\n请输入后缀表达式（例如2,1,+,3,*）：\n");
             if (scanf("%255s", expression) != 1)
             {
                 return 1;
             }
-            printf("\n����ĺ�׺����ʽ��%s\n", expression);
-            printf("---------- ��ʽ����� ----------\n");
+            printf("\n输入的后缀表达式：%s\n", expression);
+            printf("---------- 算式搭建过程 ----------\n");
             result = EvaluatePostfix(expression, finalFormula);
-            printf("������ʽ��%s\n", finalFormula);
-            printf("��������%d\n\n", result);
+            printf("完整算式：%s\n", finalFormula);
+            printf("计算结果：%d\n\n", result);
         }
         else
         {
-            printf("ѡ������������1��0��\n");
+            printf("选择有误，请输入1或0。\n");
         }
-        printf("����������1���˳�������0��");
+        printf("继续请输入1，退出请输入0：");
         if (scanf("%d", &choice) != 1)
         {
             return 1;
         }
     }
-    printf("�������˳���\n");
+    printf("程序已退出。\n");
     return 0;
 }

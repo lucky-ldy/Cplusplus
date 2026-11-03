@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #define MAX_SIZE 1000
-//实验三
-/* ��ģʽ����next���飬�±��0��ʼ */
+// ???
+
+/* 求模式串的next数组，下标从0开始 */
 void GetNext(char pattern[], int next[])
 {
     int index = 0;
@@ -25,7 +26,7 @@ void GetNext(char pattern[], int next[])
     }
 }
 
-/* �ҵ�ʱ������ʼ�±꣬û���ҵ�ʱ����-1 */
+/* 找到时返回起始下标，没有找到时返回-1 */
 int KmpSearch(char human[], char pattern[])
 {
     int next[MAX_SIZE];
@@ -36,7 +37,7 @@ int KmpSearch(char human[], char pattern[])
     int index;
 
     GetNext(pattern, next);
-    printf("next���飨�±��0��ʼ����");
+    printf("next数组（下标从0开始）：");
     for (index = 0; index < patternLength; index++)
     {
         printf("%d ", next[index]);
@@ -52,12 +53,12 @@ int KmpSearch(char human[], char pattern[])
         }
         else
         {
-            printf("�Ƚϣ��˵ĵ�%dλ%c�������ĵ�%dλ%c��",
+            printf("比较：人的第%d位%c，病毒的第%d位%c。",
                    humanIndex + 1, human[humanIndex],
                    patternIndex + 1, pattern[patternIndex]);
             if (human[humanIndex] == pattern[patternIndex])
             {
-                printf("��ͬ�������ȽϺ�����ַ���\n");
+                printf("相同，继续比较后面的字符。\n");
                 humanIndex++;
                 patternIndex++;
             }
@@ -65,11 +66,11 @@ int KmpSearch(char human[], char pattern[])
             {
                 if (next[patternIndex] == -1)
                 {
-                    printf("��ͬ���˵�λ�ú��ƣ��Ӳ�����1λ���±Ƚϡ�\n");
+                    printf("不同，人的位置后移，从病毒第1位重新比较。\n");
                 }
                 else
                 {
-                    printf("��ͬ���˵�λ�ò��䣬�����ӵ�%dλ�����Ƚϡ�\n",
+                    printf("不同，人的位置不变，病毒从第%d位继续比较。\n",
                            next[patternIndex] + 1);
                 }
                 patternIndex = next[patternIndex];
@@ -84,7 +85,7 @@ int KmpSearch(char human[], char pattern[])
     return -1;
 }
 
-/* ����״�����Ӳ�ͬλ��չ�����ٷֱ����KMPƥ�� */
+/* 将环状病毒从不同位置展开，再分别进行KMP匹配 */
 int DetectVirus(char virus[], char human[])
 {
     char rotated[MAX_SIZE];
@@ -94,7 +95,7 @@ int DetectVirus(char virus[], char human[])
 
     if (virusLength > humanLength)
     {
-        printf("�������б��˵����г�����������ƥ�䡣\n");
+        printf("病毒序列比人的序列长，不能完整匹配。\n");
         return 0;
     }
 
@@ -106,17 +107,17 @@ int DetectVirus(char virus[], char human[])
         }
         rotated[virusLength] = '\0';
 
-        printf("\n��%d��չ����%s\n", start + 1, rotated);
+        printf("\n第%d次展开：%s\n", start + 1, rotated);
         position = KmpSearch(human, rotated);
         if (position >= 0)
         {
-            printf("ƥ��ɹ����˵ĵ�%dλ����%dλΪ%s��\n",
+            printf("匹配成功：人的第%d位到第%d位为%s。\n",
                    position + 1, position + virusLength, rotated);
             return 1;
         }
-        printf("����δ�ҵ�����ƥ�䡣\n");
+        printf("本次未找到完整匹配。\n");
     }
-    printf("����չ����ʽ��δ�ҵ�����ƥ�䡣\n");
+    printf("所有展开方式都未找到完整匹配。\n");
     return 0;
 }
 
@@ -126,15 +127,15 @@ int main(void)
     char human[MAX_SIZE];
     int choice, infected;
 
-    printf("========== ����DNA��Ⱦ��� ==========\n");
-    printf("ÿ�����룺����DNA �˵�DNA�����������ÿո�ָ���\n");
-    printf("��������ĸ��ɣ�ÿ�����в�����999���ַ���\n");
-    printf("����DNA�ǻ�״���˵�DNA�����ԣ�������ĸ��Сд��\n");
-    printf("ʾ��1��abbab abbabaab��Ԥ��YES��\n");
-    printf("ʾ��2��baa cacdvcabacsd��Ԥ��YES��\n");
-    printf("ʾ��3��abc def��Ԥ��NO��\n");
-    printf("����0 0Ҳ����ֱ�ӽ�����\n\n");
-    printf("��ʼ���������1���˳�������0��");
+    printf("========== 病毒DNA感染检测 ==========\n");
+    printf("每组输入：病毒DNA 人的DNA，两个序列用空格分隔。\n");
+    printf("序列由字母组成，每个序列不超过999个字符。\n");
+    printf("病毒DNA是环状，人的DNA是线性，区分字母大小写。\n");
+    printf("示例1：abbab abbabaab，预期YES。\n");
+    printf("示例2：baa cacdvcabacsd，预期YES。\n");
+    printf("示例3：abc def，预期NO。\n");
+    printf("输入0 0也可以直接结束。\n\n");
+    printf("开始检测请输入1，退出请输入0：");
     if (scanf("%d", &choice) != 1)
     {
         return 1;
@@ -144,7 +145,7 @@ int main(void)
     {
         if (choice == 1)
         {
-            printf("\n�����벡��DNA���˵�DNA������abbab abbabaab����\n");
+            printf("\n请输入病毒DNA和人的DNA（例如abbab abbabaab）：\n");
             if (scanf("%999s %999s", virus, human) != 2)
             {
                 return 1;
@@ -154,10 +155,10 @@ int main(void)
                 break;
             }
 
-            printf("����DNA��%s\n�˵�DNA��%s\n", virus, human);
-            printf("---------- չ����ƥ����� ----------\n");
+            printf("病毒DNA：%s\n人的DNA：%s\n", virus, human);
+            printf("---------- 展开与匹配过程 ----------\n");
             infected = DetectVirus(virus, human);
-            printf("\n�������YES��ʾ��Ⱦ��NO��ʾδ��Ⱦ����\n");
+            printf("\n检测结果（YES表示感染，NO表示未感染）：\n");
             if (infected == 1)
             {
                 printf("YES\n\n");
@@ -169,15 +170,15 @@ int main(void)
         }
         else
         {
-            printf("ѡ������������1��0��\n");
+            printf("选择有误，请输入1或0。\n");
         }
 
-        printf("����������1���˳�������0��");
+        printf("继续请输入1，退出请输入0：");
         if (scanf("%d", &choice) != 1)
         {
             return 1;
         }
     }
-    printf("�������˳���\n");
+    printf("程序已退出。\n");
     return 0;
 }

@@ -4,12 +4,13 @@
 #include <ctype.h>
 #include <math.h>
 #include <errno.h>
-//实验四
+// ???
+
 #define MAX_SIZE 1001
 
 typedef struct TreeNode
 {
-    char op;                  // '#'��ʾ���֣�����Ϊ�����
+    char op;                  // '#'表示数字，其余为运算符
     double value;
     struct TreeNode *left;
     struct TreeNode *right;
@@ -17,8 +18,8 @@ typedef struct TreeNode
 
 typedef struct Stack
 {
-    TreeNode *nodes[MAX_SIZE]; // �����Ѿ�����������
-    char operators[MAX_SIZE]; // ������δ�����������
+    TreeNode *nodes[MAX_SIZE]; // 保存已经建立的子树
+    char operators[MAX_SIZE]; // 保存尚未处理的运算符
     int nodeTop;
     int operatorTop;
 } Stack;
@@ -28,7 +29,7 @@ TreeNode *CreateNode(char op, double value)
     TreeNode *node = (TreeNode *)malloc(sizeof(TreeNode));
     if (node == NULL)
     {
-        printf("�ڴ�����ʧ�ܡ�\n");
+        printf("内存申请失败。\n");
         exit(EXIT_FAILURE);
     }
     node->op = op;
@@ -56,7 +57,7 @@ int Priority(char op)
     return 0;
 }
 
-// �ȳ�ջ���������������ջ����������
+// 先出栈的是右子树，后出栈的是左子树
 int MergeTree(Stack *stack)
 {
     if (stack->nodeTop < 1)
@@ -66,7 +67,7 @@ int MergeTree(Stack *stack)
     root->right = stack->nodes[stack->nodeTop--];
     root->left = stack->nodes[stack->nodeTop--];
     stack->nodes[++stack->nodeTop] = root;
-    printf("�������� %c Ϊ������������������\n", op);
+    printf("建树：以 %c 为根，连接左、右子树。\n", op);
     return 1;
 }
 
@@ -76,7 +77,7 @@ TreeNode *BuildTree(char expression[], int *finished)
     stack.nodeTop = -1;
     stack.operatorTop = -1;
     int index = 0;
-    int needNumber = 1; // 1��ʾ��ǰӦ�����ֻ�������
+    int needNumber = 1; // 1表示当前应读数字或左括号
     *finished = 0;
 
     while (expression[index] != '\0')
@@ -99,7 +100,7 @@ TreeNode *BuildTree(char expression[], int *finished)
             else if (isdigit((unsigned char)current) ||
                      current == '.' || current == '+' || current == '-')
             {
-                // strtod��ȡһ��������ֵ������endָ����������ַ�
+                // strtod读取一个完整数值，并让end指向它后面的字符
                 char *end;
                 errno = 0;
                 double number = strtod(expression + index, &end);
@@ -108,7 +109,7 @@ TreeNode *BuildTree(char expression[], int *finished)
                     goto error;
                 index = (int)(end - expression);
                 stack.nodes[++stack.nodeTop] = CreateNode('#', number);
-                printf("���������� %.10g ��ΪҶ�ӽ�㡣\n", number);
+                printf("建树：数字 %.10g 作为叶子结点。\n", number);
                 needNumber = 0;
             }
             else
@@ -138,7 +139,7 @@ TreeNode *BuildTree(char expression[], int *finished)
             }
             if (stack.operatorTop < 0)
                 goto error;
-            stack.operatorTop--; // ��������������Ե�������
+            stack.operatorTop--; // 丢弃与右括号配对的左括号
             index++;
         }
         else
@@ -157,7 +158,7 @@ TreeNode *BuildTree(char expression[], int *finished)
     {
         if (stack.nodeTop == -1 && stack.operatorTop == -1)
         {
-            *finished = 1; // ��������Ⱥţ�����ĿҪ�����
+            *finished = 1; // 单独输入等号，按题目要求结束
             return NULL;
         }
         goto error;
@@ -173,13 +174,13 @@ TreeNode *BuildTree(char expression[], int *finished)
     return stack.nodes[0];
 
 error:
-    printf("���������������֡�����������ź�ĩβ�ĵȺš�\n");
+    printf("输入有误：请检查数字、运算符、括号和末尾的等号。\n");
     while (stack.nodeTop >= 0)
         FreeTree(stack.nodes[stack.nodeTop--]);
     return NULL;
 }
 
-// �������ʱ�������ţ���ʾ����ʽ����Ӧ�������ϵ
+// 中序遍历时加上括号，显示表达式树对应的运算关系
 void PrintExpression(TreeNode *root)
 {
     if (root->op == '#')
@@ -206,7 +207,7 @@ void PostOrder(TreeNode *root)
         printf("%c ", root->op);
 }
 
-// ������ֵ������������������������������������
+// 后序求值：先算左子树，再算右子树，最后处理根结点
 double EvaluateTree(TreeNode *root, int *ok, int *step)
 {
     if (root->op == '#')
@@ -227,7 +228,7 @@ double EvaluateTree(TreeNode *root, int *ok, int *step)
         case '/':
             if (right == 0)
             {
-                printf("����ʧ�ܣ���������Ϊ0��\n");
+                printf("计算失败：除数不能为0。\n");
                 *ok = 0;
                 return 0;
             }
@@ -236,11 +237,11 @@ double EvaluateTree(TreeNode *root, int *ok, int *step)
     }
     if (!isfinite(result))
     {
-        printf("����ʧ�ܣ���������ɱ�ʾ��Χ��\n");
+        printf("计算失败：结果超出可表示范围。\n");
         *ok = 0;
         return 0;
     }
-    printf("��%d����%.10g %c %.10g = %.10g\n",
+    printf("第%d步：%.10g %c %.10g = %.10g\n",
            (*step)++, left, root->op, right, result);
     return result;
 }
@@ -256,12 +257,12 @@ int main(void)
 {
     char expression[MAX_SIZE + 1];
     int choice;
-    printf("========== ���ڶ������ı���ʽ��ֵ ==========\n");
-    printf("֧��+��-��*��/�����š���λ����С���ʹ����ŵ���ֵ��\n");
-    printf("����ʽ��=��β�����1000���ַ��������ո�\n");
-    printf("ʾ����2*(2+5)=�����Ϊ14��1+2=�����Ϊ3��\n");
-    printf("����д��-2��(-2)������������ȡ����д��0-(...)��\n");
-    printf("��������=Ҳ���Խ�������ʼ������1���˳�������0��");
+    printf("========== 基于二叉树的表达式求值 ==========\n");
+    printf("支持+、-、*、/、括号、多位数、小数和带符号的数值。\n");
+    printf("表达式以=结尾，最多1000个字符，允许空格。\n");
+    printf("示例：2*(2+5)=，结果为14；1+2=，结果为3。\n");
+    printf("负数写成-2或(-2)，对整个括号取负请写成0-(...)。\n");
+    printf("单独输入=也可以结束。开始请输入1，退出请输入0：");
     while (scanf("%d", &choice) == 1)
     {
         ClearLine();
@@ -269,7 +270,7 @@ int main(void)
             break;
         if (choice == 1)
         {
-            printf("\n���������ʽ��\n");
+            printf("\n请输入表达式：\n");
             if (fgets(expression, sizeof(expression), stdin) == NULL)
                 break;
             size_t length = strcspn(expression, "\r\n");
@@ -277,35 +278,35 @@ int main(void)
                 (expression[length] == '\0' && !feof(stdin)))
             {
                 ClearLine();
-                printf("����������������1000���ַ����ڡ�\n");
+                printf("输入过长，请控制在1000个字符以内。\n");
             }
             else
             {
                 expression[length] = '\0';
                 int finished;
-                printf("---------- ����ʽ���������� ----------\n");
+                printf("---------- 表达式树建立过程 ----------\n");
                 TreeNode *root = BuildTree(expression, &finished);
                 if (finished)
                     break;
                 if (root != NULL)
                 {
-                    printf("�������ʽ��");
+                    printf("中序表达式：");
                     PrintExpression(root);
-                    printf("\n���������");
+                    printf("\n后序遍历：");
                     PostOrder(root);
-                    printf("\n---------- ���������� ----------\n");
+                    printf("\n---------- 后序计算过程 ----------\n");
                     int ok = 1, step = 1;
                     double result = EvaluateTree(root, &ok, &step);
                     if (ok)
-                        printf("��������%.10g\n", result);
+                        printf("计算结果：%.10g\n", result);
                     FreeTree(root);
                 }
             }
         }
         else
-            printf("ѡ������������1��0��\n");
-        printf("\n����������1���˳�������0��");
+            printf("选择有误，请输入1或0。\n");
+        printf("\n继续请输入1，退出请输入0：");
     }
-    printf("�������˳���\n");
+    printf("程序已退出。\n");
     return 0;
 }
