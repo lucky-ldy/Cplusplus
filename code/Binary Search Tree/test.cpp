@@ -32,7 +32,27 @@ int main()
         t.Insert(e);
     }
     t.InOrder();
+    
+    //左右都不为空的场景
+    t.Erase(3);
+    t.InOrder();
 
+    t.Erase(8);
+    t.InOrder();
+
+    //左子树不为空右子树为空的场景
+    t.Erase(14);
+    t.InOrder();
+
+    //右子树不为空左子树为空的场景
+    t.Erase(6);
+    t.InOrder();
+
+    for(auto e : a)
+    {
+        t.Erase(e);
+    }
+    t.InOrder();
     return 0;
 
 }
