@@ -66,22 +66,26 @@ int main()
     dict.Insert("insert", "插入");
     dict.Insert("string", "字符串");
 
-    //输入单词进行查找
-    string str;
-    while (cin >> str)//cin >> 可以一直输入 用ctrl Z + 换行结束
-    {
-        auto ret = dict.Find(str);
-        
-        if (ret)
-        {
-            cout << "->" << ret->_value << endl;//找到了返回单词对应的中文
-        }
+    //拷贝构造测试
+    keyvalue::BinarySearchTree<string, string> copy(dict);
+    copy.InOrder();
 
-        else
-        {
-            cout << "无此单词，请重新输入" << endl;
-        }
-}
+    //输入单词进行查找
+    // string str;
+    // while (cin >> str)//cin >> 可以一直输入 用ctrl Z + 换行结束
+    // {
+    //     auto ret = dict.Find(str);
+        
+    //     if (ret)
+    //     {
+    //         cout << "->" << ret->_value << endl;//找到了返回单词对应的中文
+    //     }
+
+    //     else
+    //     {
+    //         cout << "无此单词，请重新输入" << endl;
+    //     }
+
 
 //  2. 水果查找
 

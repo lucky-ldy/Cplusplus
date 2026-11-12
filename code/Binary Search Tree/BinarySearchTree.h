@@ -319,7 +319,23 @@ namespace keyvalue
     {
         typedef BinarySearchTreeNode<K, V> TreeNode;
     public:
-        
+        BinarySearchTree()
+        {
+        }
+
+        BinarySearchTree(const BinarySearchTree& tree)
+        {
+            _root = _Copy(tree._root);
+        }
+
+        BinarySearchTree& operator=(const BinarySearchTree& tree)
+        {
+            TreeNode* copy = _Copy(tree._root);
+            _Destroy(_root);
+            _root = copy;
+            return *this;
+        }
+
         ~BinarySearchTree()
         {
             _Destroy(_root);
@@ -589,6 +605,20 @@ namespace keyvalue
             _Destroy(root->_left);
             _Destroy(root->_right);
             delete root;
+        }
+
+        TreeNode* _Copy(TreeNode* root)
+        {
+            if (root == nullptr)
+            {
+                return nullptr;
+            }
+
+            TreeNode* copy = new TreeNode(root->_key, root->_value);
+            copy->_left = _Copy(root->_left);
+            copy->_right = _Copy(root->_right);
+
+            return copy;
         }
 
     private:
