@@ -4,11 +4,11 @@
 #include <set>
 using namespace std;
 
-//ä¸€ã€setå®¹å™¨
-//setçš„å®šä¹‰æ˜¯ï¼šä¸€ç§å­˜æ”¾ä¸é‡å¤å…ƒç´ ï¼Œå¹¶æŒ‰é¡ºåºè‡ªåŠ¨æ’åˆ—çš„å…³è”å®¹å™¨ã€‚
-//ä¾‹å¦‚ï¼Œæ’å…¥ 3ã€1ã€3 åï¼Œ`set` ä¸­ä¿å­˜çš„æ˜¯ 1ã€3ã€‚å®ƒé€šå¸¸ç”¨å¹³è¡¡äºŒå‰æœç´¢æ ‘å®ç°ã€‚
+//Ò»¡¢setÈİÆ÷
+//setµÄ¶¨ÒåÊÇ£ºÒ»ÖÖ´æ·Å²»ÖØ¸´ÔªËØ£¬²¢°´Ë³Ğò×Ô¶¯ÅÅÁĞµÄ¹ØÁªÈİÆ÷¡£
+//ÀıÈç£¬²åÈë 3¡¢1¡¢3 ºó£¬`set` ÖĞ±£´æµÄÊÇ 1¡¢3¡£ËüÍ¨³£ÓÃÆ½ºâ¶ş²æËÑË÷Ê÷ÊµÏÖ¡£
 
-//setåº•å±‚æ˜¯â½¤çº¢â¿Šæ ‘å®ç°ï¼Œå¢åˆ æŸ¥æ•ˆç‡æ˜¯ O(logN)ï¼Œè¿­ä»£å™¨éå†æ˜¯èµ°çš„æœç´¢æ ‘çš„ä¸­åºï¼Œæ‰€ä»¥æ˜¯æœ‰åºçš„ã€‚
+//setµ×²ãÊÇ?ºì?Ê÷ÊµÏÖ£¬ÔöÉ¾²éĞ§ÂÊÊÇ O(logN)£¬µü´úÆ÷±éÀúÊÇ×ßµÄËÑË÷Ê÷µÄÖĞĞò£¬ËùÒÔÊÇÓĞĞòµÄ¡£
 void test_set1()
 {
     std::set<int> s1;
@@ -32,7 +32,7 @@ void test_set1()
     // {
     //     s1.erase(it);
     // }
-    //ç­‰ä»·äº
+    //µÈ¼ÛÓÚ
     s1.erase(x);
 
     for (auto e: s1)
@@ -44,7 +44,7 @@ void test_set1()
     set<int>::iterator it = s1.begin();
     while (it != s1.end())
     {
-        //*it += 1; //ä¸æ”¯æŒä¿®æ”¹
+        //*it += 1; //²»Ö§³ÖĞŞ¸Ä
         cout << *it << " ";
         it++;
     }
@@ -52,7 +52,7 @@ void test_set1()
 
     if(s1.count(5))
     {
-        cout << "5åœ¨setä¸­" << endl;
+        cout << "5ÔÚsetÖĞ" << endl;
     }
 
 }
@@ -74,9 +74,9 @@ void test_set2()
     }
     cout << endl;
 
-    //åˆ é™¤[2,8]ä¹‹é—´çš„å…ƒç´ 
-    //lower_bound()è¿”å›ç¬¬ä¸€ä¸ªå¤§äºç­‰äºxçš„å…ƒç´ çš„è¿­ä»£å™¨ å·¦é—­
-    //upper_bound()è¿”å›ç¬¬ä¸€ä¸ªå¤§äºxçš„å…ƒç´ çš„è¿­ä»£å™¨ å³å¼€
+    //É¾³ı[2,8]Ö®¼äµÄÔªËØ
+    //lower_bound()·µ»ØµÚÒ»¸ö´óÓÚµÈÓÚxµÄÔªËØµÄµü´úÆ÷ ×ó±Õ
+    //upper_bound()·µ»ØµÚÒ»¸ö´óÓÚxµÄÔªËØµÄµü´úÆ÷ ÓÒ¿ª
     s2.erase(s2.lower_bound(2), s2.upper_bound(8));
     for (auto e: s2)
     {
@@ -84,7 +84,7 @@ void test_set2()
     }
     cout << endl;
 
-    //å»é‡ æ’åº
+    //È¥ÖØ ÅÅĞò
     set<int> s3 = { 3,4,2,4,2,1 };
 	for (auto e : s3) {
 		cout << e << " ";
@@ -92,7 +92,7 @@ void test_set2()
 	cout << endl;
 
 	set<string> strset = { "sort", "insert", "add" };
-	// éå†stringæ¯”è¾ƒascllç å¤§å°é¡ºåºéå†çš„
+	// ±éÀústring±È½ÏascllÂë´óĞ¡Ë³Ğò±éÀúµÄ
 	for (auto& e : strset)
 	{
 		cout << e << " ";
@@ -104,11 +104,11 @@ void test_set2()
 
 }
 
-//multisetå’Œsetçš„å·®å¼‚
+//multisetºÍsetµÄ²îÒì
 
 void test_set3()
 {
-    // ç›¸æ¯”setä¸åŒçš„æ˜¯ï¼Œmultisetæ˜¯æ’åºï¼Œä½†æ˜¯ä¸å»é‡
+    // Ïà±Èset²»Í¬µÄÊÇ£¬multisetÊÇÅÅĞò£¬µ«ÊÇ²»È¥ÖØ
 	multiset<int> s = { 2,2,7,2,4,8,4,2,4,9 };
 	auto it = s.begin();
 	while (it != s.end())
@@ -118,7 +118,7 @@ void test_set3()
 	}
 	cout << endl;
 
-    // ç›¸æ¯”setä¸åŒçš„æ˜¯ï¼Œxå¯èƒ½ä¼šå­˜åœ¨å¤šä¸ªï¼ŒfindæŸ¥æ‰¾ä¸­åºçš„ç¬¬ä¸€ä¸ª
+    // Ïà±Èset²»Í¬µÄÊÇ£¬x¿ÉÄÜ»á´æÔÚ¶à¸ö£¬find²éÕÒÖĞĞòµÄµÚÒ»¸ö
 	int x;
 	cin >> x;
 	auto pos = s.find(x);
@@ -129,10 +129,10 @@ void test_set3()
 	}
 	cout << endl;
 
-    // ç›¸æ¯”setä¸åŒçš„æ˜¯ï¼Œcountä¼šè¿”å›xçš„å®é™…ä¸ªæ•°
+    // Ïà±Èset²»Í¬µÄÊÇ£¬count»á·µ»ØxµÄÊµ¼Ê¸öÊı
 	cout << s.count(x) << endl;
 
-	// ç›¸æ¯”setä¸åŒçš„æ˜¯ï¼Œeraseç»™å€¼æ—¶ä¼šåˆ é™¤æ‰€æœ‰çš„x
+	// Ïà±Èset²»Í¬µÄÊÇ£¬erase¸øÖµÊ±»áÉ¾³ıËùÓĞµÄx
 	s.erase(x);
 	for (auto e : s)
 	{
@@ -144,19 +144,19 @@ void test_set3()
 }
 
 
-//map æ˜¯ C++ æ ‡å‡†åº“ä¸­çš„å…³è”å®¹å™¨ ç»å…¸çš„key-valueå¯¹
-//ç”¨äºä¿å­˜â€œé”®â€”å€¼â€å¯¹ã€‚æ¯ä¸ªé”®å”¯ä¸€ï¼Œå…ƒç´ ä¼šæŒ‰é”®è‡ªåŠ¨æ’åºã€‚
+//map ÊÇ C++ ±ê×¼¿âÖĞµÄ¹ØÁªÈİÆ÷ ¾­µäµÄkey-value¶Ô
+//ÓÃÓÚ±£´æ¡°¼ü¡ªÖµ¡±¶Ô¡£Ã¿¸ö¼üÎ¨Ò»£¬ÔªËØ»á°´¼ü×Ô¶¯ÅÅĞò¡£
 void test_map1()
 {
-    //pair æ˜¯ C++ æ ‡å‡†åº“ä¸­çš„å…³è”å®¹å™¨ ç»å…¸çš„key-valueå¯¹
+    //pair ÊÇ C++ ±ê×¼¿âÖĞµÄ¹ØÁªÈİÆ÷ ¾­µäµÄkey-value¶Ô
     map<string, string> m1;
-    //æ˜ç¡®å†™å‡º pair ç±»å‹å¹¶ç›´æ¥æ„é€ ã€‚
-    m1.insert(pair<string, string>("sort", "æ’åº"));
-    m1.insert(pair<string, string>("insert", "æ’å…¥"));
-    // ç›´æ¥ä½¿ç”¨key-valueå¯¹åˆå§‹åŒ–
-    m1.insert({"add", "æ·»åŠ "});
-    //å…ˆåˆ›å»ºä¸€ä¸ª pairï¼Œå†èµ‹ç»™å˜é‡ p
-    pair<string, string> p = {"delete", "åˆ é™¤"};
+    //Ã÷È·Ğ´³ö pair ÀàĞÍ²¢Ö±½Ó¹¹Ôì¡£
+    m1.insert(pair<string, string>("sort", "ÅÅĞò"));
+    m1.insert(pair<string, string>("insert", "²åÈë"));
+    // Ö±½ÓÊ¹ÓÃkey-value¶Ô³õÊ¼»¯
+    m1.insert({"add", "Ìí¼Ó"});
+    //ÏÈ´´½¨Ò»¸ö pair£¬ÔÙ¸³¸ø±äÁ¿ p
+    pair<string, string> p = {"delete", "É¾³ı"};
     for (auto& e: m1)
     {
         cout << e.first << ":" << e.second << endl;
@@ -167,27 +167,27 @@ void test_map1()
     while (it != m1.end())
     {
         cout << it->first << ":" << it->second << endl;
-        it->second = "ä¿®æ”¹";//å¯ä»¥ä¿®æ”¹value
-        //it->first = "ä¿®æ”¹";//ä¿®æ”¹keyæ˜¯ä¸å…è®¸çš„
+        it->second = "ĞŞ¸Ä";//¿ÉÒÔĞŞ¸Ävalue
+        //it->first = "ĞŞ¸Ä";//ĞŞ¸ÄkeyÊÇ²»ÔÊĞíµÄ
         cout << it->first << ":" << it->second << endl;
         it++;
     }
     cout << endl;
 }
 
-void test_map2()
+void test_map2() 
 {
 	map<string, string> dict;
-	dict.insert(make_pair("sort", "æ’åº"));
-	// keyä¸å­˜åœ¨->æ’å…¥ {"insert", string()}
-	dict["insert"]; // {key, valueé»˜è®¤æ„é€ }
-	// æ’å…¥+ä¿®æ”¹value
-	dict["left"] = "å·¦è¾¹";
+	dict.insert(make_pair("sort", "ÅÅĞò"));
+	// key²»´æÔÚ->²åÈë {"insert", string()}
+	dict["insert"]; // {key, valueÄ¬ÈÏ¹¹Ôì}
+	// ²åÈë+ĞŞ¸Ävalue
+	dict["left"] = "×ó±ß";
 
-	// keyå­˜åœ¨->æŸ¥æ‰¾
+	// key´æÔÚ->²éÕÒ
 	cout << dict["left"] << endl;
-	// ä¿®æ”¹value
-	dict["left"] = "å·¦è¾¹ã€å‰©ä½™";
+	// ĞŞ¸Ävalue
+	dict["left"] = "×ó±ß¡¢Ê£Óà";
 	cout << dict["left"] << endl;
 
 	int i = int();
@@ -195,11 +195,11 @@ void test_map2()
 
 void test_map3()
 {
-    //è¿™é‡Œç»Ÿè®¡æ¯ä¸ªæ°´æœçš„ä¸ªæ•° æ˜¯æ€ä¹ˆå®ç°çš„
-    //ä¸å­˜åœ¨å…ˆæ’å…¥insert<key,0> åŒæ—¶è¿”å›æ¬¡æ•°valueçš„å¼•ç”¨ å­˜åœ¨åè¿›è¡ŒæŸ¥æ‰¾+1
-    string arr[] = { "è‹¹æœ", "è¥¿ç“œ", "è‹¹æœ", "è¥¿ç“œ", "è‹¹æœ", "è‹¹æœ", "è¥¿ç“œ", "è‹¹æœ", "é¦™è•‰", "è‹¹æœ", "é¦™è•‰" };
+    //ÕâÀïÍ³¼ÆÃ¿¸öË®¹ûµÄ¸öÊı ÊÇÔõÃ´ÊµÏÖµÄ
+    //²»´æÔÚÏÈ²åÈëinsert<key,0> Í¬Ê±·µ»Ø´ÎÊıvalueµÄÒıÓÃ ´æÔÚºó½øĞĞ²éÕÒ+1 
+    string arr[] = { "Æ»¹û", "Î÷¹Ï", "Æ»¹û", "Î÷¹Ï", "Æ»¹û", "Æ»¹û", "Î÷¹Ï", "Æ»¹û", "Ïã½¶", "Æ»¹û", "Ïã½¶" };
 	map<string, int> countMap;
-	for (auto& str : arr)
+	for (auto& str : arr) 
     {
 		/*auto it = countMap.find(str);
 		if (it == countMap.end()) {
@@ -217,8 +217,125 @@ void test_map3()
         cout << e.first << ":" << e.second << endl;
     }
     cout << endl;
+}
+
+void test_map4()
+{
+    multimap<string, int> multimap;
+	map<string, int> m;
+    //key¿ÉÒÔÖØ¸´ Èı¸öÖµ
+	multimap.insert({ "ÕÅÈı", 1 });
+	multimap.insert({ "ÕÅÈı", 2 });
+	multimap.insert({ "ÕÅÈı", 2 });
+
+    //keyÎ¨Ò» Ò»¸öÖµ
+	m.insert({ "ÕÅÈı", 1 });
+    //value²»»áĞŞ¸Ä
+	m.insert({ "ÕÅÈı", 2 });
 
 }
+
+#
+// ¸´ÖÆ´øËæ»úÖ¸ÕëµÄÁ´±í
+class Solution 
+{
+public:
+    Node* copyRandomList(Node* head) 
+    {
+        // ±£´æ¡°Ô­½ÚµãµØÖ· ¡ú ¶ÔÓ¦µÄĞÂ½ÚµãµØÖ·¡±
+        map<Node*, Node*> nodeMap;
+
+        // copyhead Ö¸Ïò¸´ÖÆÁ´±íµÄÍ·£¬copytail Ö¸Ïò¸´ÖÆÁ´±íµÄÎ²
+        Node* copyhead = nullptr;
+        Node* copytail = nullptr;
+
+        // cur ÓÃÀ´±éÀúÔ­Á´±í
+        Node* cur = head;
+
+        // µÚÒ»±é£º¸´ÖÆÃ¿¸ö½Úµã£¬²¢Á¬½Ó¸´ÖÆ½ÚµãµÄ next
+        while (cur != nullptr) {
+            if (copytail == nullptr) {
+                // µÚÒ»¸ö½Úµã£º´´½¨¸´ÖÆÁ´±íµÄÍ·½Úµã
+                copyhead = copytail = new Node(cur->val);
+            } else {
+                // ÆäËû½Úµã£º´´½¨ĞÂ½Úµã£¬½Óµ½¸´ÖÆÁ´±íÎ²²¿
+                copytail->next = new Node(cur->val);
+
+                // Î²Ö¸ÕëÒÆ¶¯µ½¸Õ´´½¨µÄĞÂ½Úµã
+                copytail = copytail->next;
+            }
+
+            // ¼ÇÂ¼µ±Ç°Ô­½Úµã¶ÔÓ¦ÄÄ¸ö¸´ÖÆ½Úµã
+            // ÀıÈç£ºÔ­½Úµã A ¶ÔÓ¦¸´ÖÆ½Úµã A'
+            nodeMap[cur] = copytail;
+
+            // cur ÑØÔ­Á´±íÇ°½ø
+            cur = cur->next;
+        }
+
+        // µÚ¶ş±é£º¸ù¾İÔ­½ÚµãµÄ random£¬ÉèÖÃ¸´ÖÆ½ÚµãµÄ random
+        cur = head;          // ÖØĞÂ´ÓÔ­Á´±íÍ·¿ªÊ¼
+        Node* copy = copyhead; // Í¬Ê±´Ó¸´ÖÆÁ´±íÍ·¿ªÊ¼
+
+        while (cur != nullptr) {
+            if (cur->random == nullptr) {
+                // Ô­½ÚµãµÄ random Îª¿Õ£¬¸´ÖÆ½ÚµãµÄ random Ò²ÉèÎª¿Õ
+                copy->random = nullptr;
+            } else {
+                // ÕÒ³öÔ­½Úµã random Ö¸ÏòµÄ½ÚµãËù¶ÔÓ¦µÄ¸´ÖÆ½Úµã
+                copy->random = nodeMap[cur->random];
+            }
+
+            // Á½¸öÖ¸Õë·Ö±ğÑØ¸÷×ÔÁ´±íÇ°½ø
+            cur = cur->next;
+            copy = copy->next;
+        }
+
+        // ·µ»Ø¸´ÖÆÁ´±íµÄÍ·½Úµã
+        return copyhead;
+    }
+};
+
+//Ç°k¸ö¸ßÆµµ¥´Ê
+
+class Solution 
+{
+public:
+    // ÅÅĞò±È½Ï¹æÔò£º°´ pair ÖĞµÄ´ÎÊı´Ó´óµ½Ğ¡ÅÅ
+    struct kvGreater 
+    {
+        bool operator()(const pair<string, int>& kv1,const pair<string, int>& kv2) const 
+        {
+            return kv1.second > kv2.second;
+        }
+    };
+
+    vector<string> topKFrequent(vector<string>& words, int k) 
+    {
+        // Í³¼ÆÃ¿¸öµ¥´Ê³öÏÖµÄ´ÎÊı
+        map<string, int> countMap;
+        for (auto& str : words) 
+        {
+            countMap[str]++;
+        }
+
+        // °Ñ map ÖĞµÄ¡°µ¥´Ê¡¢´ÎÊı¡±¸´ÖÆµ½ vector£¬·½±ãÅÅĞò
+        vector<pair<string, int>> v(countMap.begin(), countMap.end());
+
+        // °´³öÏÖ´ÎÊı´Ó¸ßµ½µÍÅÅĞò
+        // ´ÎÊıÏàÍ¬Ê±£¬stable_sort ±£ÁôÔ­À´µÄË³Ğò  
+        stable_sort(v.begin(), v.end(), kvGreater());
+
+        // È¡ÅÅĞòºóµÄÇ° k ¸öµ¥´Ê
+        vector<string> ret;
+        for (int i = 0; i < k; i++) 
+        {
+            ret.push_back(v[i].first);
+        }
+
+        return ret;
+    }
+};
 
 
 
@@ -227,10 +344,10 @@ int main()
     //test_set1();
     //test_set2();
     //test_set3();
-    test_map1();
-    test_map2();
-    test_map3();
+    // test_map1();
+    // test_map2();
+    // test_map3();
 
-
+    test_map4();
     return 0;
 }
