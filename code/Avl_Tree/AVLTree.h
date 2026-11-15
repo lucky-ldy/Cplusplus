@@ -93,6 +93,8 @@ private:
     {
         Node* subRight = parent->_right;
         Node* subRightLeft = subRight->_left;
+        Node* parentParent = parent->_parent;
+
         parent->_right = subRightLeft;
         subRight->_left = parent;
         parent->_parent = subRight;
