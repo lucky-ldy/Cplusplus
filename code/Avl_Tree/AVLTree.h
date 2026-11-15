@@ -52,6 +52,73 @@ class AVLTree
 {
 	typedef AVLTreeNode<K, V> Node;
 
+private:
+
+    //右单旋（RR）：P 的右子树的右边过高，以右孩子 R 为新根
+    void RotateR(Node* parent)
+    {
+        Node* subLeft = parent->_left;
+        Node* subLeftRight = subLeft->_right;
+        Node* parentParent = parent->_parent;
+
+        parent->_left = subLeftRight;
+        subLeft->_right = parent;
+        parent->_parent = subLeft;
+        
+        //如果parent是根结点，需要更新根结点为subLeft，subLeft的parent指针指向nullptr
+        if(parent == _root)
+        {
+            _root = subLeft;
+            subLeft->_parent = nullptr;
+        }
+        //如果parent不是根结点，需要更新parent的parent指针指向subLeft
+        else
+        {
+            if(parent == parentParent->_left)
+            {
+                parentParent->_left = subLeft;
+            }
+
+            else
+            {
+                parentParent->_right = subLeft;
+            }
+            
+            subLeft->_parent = parentParent;
+        }
+    }
+    
+    //左单旋
+    void RotateL(Node* parent)
+    {
+        Node* subRight = parent->_right;
+        Node* subRightLeft = subRight->_left;
+        parent->_right = subRightLeft;
+        subRight->_left = parent;
+        parent->_parent = subRight;
+
+        //如果parent是根结点，需要更新根结点为subRight，subRight的parent指针指向nullptr
+        if(parent == _root)
+        {
+            _root = subRight;
+            subRight->_parent = nullptr;
+        }
+        //如果parent不是根结点，需要更新parent的parent指针指向subRight
+        else
+        {
+            if(parent == parentParent->_left)
+            {
+                parentParent->_left = subRight;
+            }
+            else
+            {
+                parentParent->_right = subRight;
+            }
+            subRight->_parent = parentParent;
+        }
+        parent->_bf = subRight->_bf = 0;
+    }
+
 public:
     AVLTree()
     {
@@ -144,3 +211,23 @@ private:
     Node* _root = nullptr;
 
 };
+
+//旋转时都要重接新子树的父结点；如果旋转的子树原来是整棵树，还要更新 _root。旋转后需更新受影响结点的父指针和平衡因子。
+//四种失衡分别是：LL 用右单旋，RR 用左单旋，LR 用左右双旋，RL 用右左双旋。
+
+//左单旋（RR）：P 的右子树的右边过高，以右孩子 R 为新根。
+// 1. 暂存 R 的左子树 b，把 b 改接为 P 的右子树。
+// 2. 把 P 改接为 R 的左孩子；R 接替 P 原来的位置。
+
+//右单旋（LL）：P 的左子树的左边过高，以左孩子 L 为新根。
+// 1. 暂存 L 的右子树 b，把 b 改接为 P 的左子树。
+// 2. 把 P 改接为 L 的右孩子；L 接替 P 原来的位置。
+
+//左右双旋（LR）：P 的左子树 L 的右子树 M 过高。
+// 1. 先对 L 做左单旋：M 升到 L 的位置，L 成为 M 的左孩子；M 的左子树改接到 L 的右边。
+// 2. 再对 P 做右单旋：M 成为这棵子树的新根，P 成为 M 的右孩子；M 的右子树改接到 P 的左边。
+
+//右左双旋（RL）：P 的右子树 R 的左子树 M 过高。
+// 1. 先对 R 做右单旋：M 升到 R 的位置，R 成为 M 的右孩子；M 的右子树改接到 R 的左边。
+// 2. 再对 P 做左单旋：M 成为这棵子树的新根，P 成为 M 的左孩子；M 的左子树改接到 P 的右边。
+
